@@ -23,6 +23,8 @@ Float_t xsec;
 Bool_t verbose = true;
 const Int_t nLHEWeight = 248;
 
+TString par;                                                                        // WOLOLO**********
+
 enum             sel         {iStopSelec, iTopSelec, iTWSelec, iWWSelec, ittDMSelec, ittHSelec, nSel};
 const TString tagSel[nSel] = {"Stop",         "Top",     "TW",     "WW",     "ttDM",     "ttH"      };
 
@@ -31,7 +33,13 @@ void RunAnalyserPAF(TString sampleName, TString Selection, Int_t nSlots, Long64_
 	Int_t iChunck = Int_t(ThisWeight);
 	if(FirstEvent != 0) verbose = false;
   TString orig_sampleName = sampleName;
-
+  
+  if (Selection.BeginsWith("ttH_") || Selection.BeginsWith("TTH_")) {              // WOLOLO**********
+    par = par.ReplaceAll("ttH_", "");
+    par = par.ReplaceAll("TTH_", "");
+    Selection = "ttH";
+  }
+  
   vector<TString> tempfiles;
   Files.clear();
 	SumOfWeights = 0;
@@ -244,7 +252,9 @@ void RunAnalyserPAF(TString sampleName, TString Selection, Int_t nSlots, Long64_
 	myProject->SetInputParam("lspMass"      , lspMass          );
 	myProject->SetInputParam("doSyst"       , G_DoSystematics  ); 
 
-
+  
+  myProject->SetInputParam("par"          , par              );
+  
 	// Name of analysis class
 	//----------------------------------------------------------------------------
 	myProject->AddSelectorPackage("LeptonSelector");

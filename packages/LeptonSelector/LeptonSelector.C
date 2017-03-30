@@ -21,9 +21,13 @@ void LeptonSelector::Initialise(){
   gIsData        = GetParam<Bool_t>("IsData");
   gIsFastSim     = GetParam<Bool_t>("IsFastSim");
   gSelection     = GetParam<Int_t>("iSelection");
+  gPar           = GetParam<TString>("par");
   localPath      = GetParam<TString>("WorkingDir");
   LepSF = new LeptonSF(localPath + "/InputFiles/");
-
+  
+  if(gPar == "LIDtop")  gSelection += iTopSelec;
+  if(gPar == "LIDstop") gSelection += iStopSelec;
+  
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   // Select SFs for each analysis !!!!!!
   if(gSelection == iStopSelec){
@@ -359,6 +363,10 @@ Bool_t LeptonSelector::isGoodLepton(Lepton lep){
 //============================================== VETO LEPTONS
 Bool_t LeptonSelector::isVetoLepton(Lepton lep){
   Bool_t passId; Bool_t passIso;
+  
+  if(gPar == "LIDtop")  gSelection = ittHSelec;
+  if(gPar == "LIDstop") gSelection = ittHSelec;
+  
   if(gSelection == iStopSelec){
     if(lep.isMuon){
       passId = true;
@@ -431,12 +439,20 @@ Bool_t LeptonSelector::isVetoLepton(Lepton lep){
   	if (!passEta || !passPt || !passVertex || !passSIP || !passIso || !passCSV || !passId || !passTightCharge || !passLepMVA || !passptRatio || !passElecCutBasedId || !passSegComp) return false;
     return true;
   }
+  
+  if(gPar == "LIDtop")  gSelection = iTopSelec;
+  if(gPar == "LIDstop") gSelection = iStopSelec;
+  
   return false;
 }
 
 //============================================== Loose leptons (or other)
 Bool_t LeptonSelector::isLooseLepton(Lepton lep){
   Bool_t passId; Bool_t passIso;
+  
+  if(gPar == "LIDtop")  gSelection = ittHSelec;
+  if(gPar == "LIDstop") gSelection = ittHSelec;
+  
   if(gSelection == ittHSelec){
   	// 	Loose muons for multilepton ttH Analysis:
   	// Fakeable muons without jetCSV cut and with pt>5.
@@ -479,6 +495,9 @@ Bool_t LeptonSelector::isLooseLepton(Lepton lep){
   	if (!passEta || !passPt || !passVertex || !passSIP || !passIso || !passCSV || !passId || !passTightCharge || !passLepMVA || !passptRatio || !passElecCutBasedId) return false;
     return true;
   }
+  
+  if(gPar == "LIDtop")  gSelection = iTopSelec;
+  if(gPar == "LIDstop") gSelection = iStopSelec;
 }
 
 

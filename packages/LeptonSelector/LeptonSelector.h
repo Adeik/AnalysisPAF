@@ -30,7 +30,8 @@ class LeptonSelector : public PAFChainItemSelector{
     Bool_t gIsFastSim;
     Int_t gSelection;
     TString localPath;
-
+    TString gPar;
+    
     // LepGood
     Lepton tL;
     Int_t nLep;

@@ -180,9 +180,9 @@ void RunAnalyserPAF(TString sampleName, TString Selection, Int_t nSlots, Long64_
 	//----------------------------------------------------------------------------
 	TString outputDir = "./" + tagSel[sel] + "_temp";
 	if(sampleName.BeginsWith("T2tt")) outputDir += "/T2tt/";
-	if(par == "LIDtop")  outputDir += "/lepidcomparison/top/";
-	if(par == "LIDstop") outputDir += "/lepidcomparison/Stop/";
-	if(par == "LIDtth")  outputDir += "/lepidcomparison/ttH/";
+	if(par == "LIDtop")  outputDir += "/lepidcomparison/top";
+	if(par == "LIDstop") outputDir += "/lepidcomparison/Stop";
+	if(par == "LIDtth")  outputDir += "/lepidcomparison/ttH";
 	gSystem->mkdir(outputDir, kTRUE);
 	if(sampleName.Contains("_ext2")) sampleName.ReplaceAll("_ext2",""); 
 	if(sampleName.Contains("_ext"))  sampleName.ReplaceAll("_ext",""); 

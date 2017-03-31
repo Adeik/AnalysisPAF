@@ -8,5 +8,11 @@ echo "%%%%%> DONE"
 echo ""
 echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starting TOP analysis"
 source DottHAnalysis.sh an $1 ttH_LIDtop
+echo "%%%%%> DONE"
+echo ""
+echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starting STOP analysis"
 source DottHAnalysis.sh an $1 ttH_LIDstop
+echo "%%%%%> DONE"
+echo ""
+echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starting TTH analysis"
 source DottHAnalysis.sh an $1 ttH_LIDtth

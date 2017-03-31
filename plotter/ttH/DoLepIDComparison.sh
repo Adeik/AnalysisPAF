@@ -7,6 +7,6 @@ source pre_start.sh
 echo "%%%%%> DONE"
 echo ""
 echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starting TOP analysis"
-source DottHAnalysis.sh an opt ttH_LIDtop
-source DottHAnalysis.sh an opt ttH_LIDstop
-source DottHAnalysis.sh an opt ttH_LIDtth
+source DottHAnalysis.sh an $1 ttH_LIDtop
+source DottHAnalysis.sh an $1 ttH_LIDstop
+source DottHAnalysis.sh an $1 ttH_LIDtth

@@ -35,8 +35,8 @@ void RunAnalyserPAF(TString sampleName, TString Selection, Int_t nSlots, Long64_
   TString orig_sampleName = sampleName;
   
   if (Selection.BeginsWith("ttH_") || Selection.BeginsWith("TTH_")) {              // WOLOLO**********
-    par = par.ReplaceAll("ttH_", "");
-    par = par.ReplaceAll("TTH_", "");
+    par = Selection.ReplaceAll("ttH_", "");
+    par = Selection.ReplaceAll("TTH_", "");
     Selection = "ttH";
   }
   

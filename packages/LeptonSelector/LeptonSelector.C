@@ -25,9 +25,7 @@ void LeptonSelector::Initialise(){
   localPath      = GetParam<TString>("WorkingDir");
   LepSF = new LeptonSF(localPath + "/InputFiles/");
   
-  if(gPar == "LIDtop")  gSelection += iTopSelec;
-  if(gPar == "LIDstop") gSelection += iStopSelec;
-  
+
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   // Select SFs for each analysis !!!!!!
   if(gSelection == iStopSelec){
@@ -59,6 +57,9 @@ void LeptonSelector::Initialise(){
   selLeptons 	  = std::vector<Lepton>();
   vetoLeptons 	= std::vector<Lepton>();
   looseLeptons 	= std::vector<Lepton>();
+	if(gPar == "LIDtop")  gSelection += iTopSelec;
+	if(gPar == "LIDstop") gSelection += iStopSelec;
+	
 }
 
 //################################################################

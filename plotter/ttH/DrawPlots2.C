@@ -16,22 +16,22 @@ const TString DYmc[2]          = {"DYJetsToLL_M50_aMCatNLO", "DYJetsToLL_M10to50
 const TString DiTriCuatrimc[13]= {"WGToLNuG", "ZGTo2LG", "WpWpJJ", "WWW", "WWZ", "WZZ", "ZZZ", "WW", "tZq_ll", "TTTT", "WZTo3LNu_amcatnlo", "WWTo2L2Nu", "ZZ"}; // Di&Tri&Cuatriboson
 const TString Data[5]          = {"MuonEG", "SingleMuon", "SingleElec", "DoubleEG", "DoubleMuon"}; // Data samples
 
-const TString path             = "/nfs/fanae/user/vrbouza/Documents/TFG/AnalysisPAF/";
+const TString path             = "/nfs/fanae/user/vrbouza/Documents/TFG/An2/AnalysisPAF/";
 const TString outputpath       = "/nfs/fanae/user/vrbouza/www/Results/";
 
 
 void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0, Float_t binN, TString Xtitle, TString name = "", TString tag = "0");
 
 void DrawPlots(TString chan = "ElMu", TString tag = "0"){
-  TString cut = "(TCat == 2 || TCat == 3 || TCat == 4)";
+  TString cut = "TIsEvent == 1";
   if (chan == "2lSS" || chan == "Elec" || chan == "Muon" || chan == "ElMu") {
-    cut   = "(TCat == 2)";
+    cut   = "(TCat == 2 && TIsEvent == 1)";
   }
   else if (chan == "3l") {
-    cut   = "(TCat == 3)";
+    cut   = "(TCat == 3 && TIsEvent == 1)";
   }
   else if (chan == "4l") {
-    cut   = "(TCat == 4)";
+    cut   = "(TCat == 4 && TIsEvent == 1)";
   }
 
   DrawPlot("TIsEvent",         cut, chan, 1, 1, 2,     " ", "Events", tag);
@@ -47,7 +47,6 @@ void DrawPlots(TString chan = "ElMu", TString tag = "0"){
   DrawPlot("TPtSubSubLeading", cut, chan, 10, 0, 200,  "Pt (GeV)", "PtSubSubLeading", tag);
   DrawPlot("TMET",             cut, chan, 10, 0, 400,  "MET (GeV)", "MET", tag);
   DrawPlot("TMHT",             cut, chan, 10, 0, 1000, "MHT (GeV)", "MHT", tag);
-  DrawPlot("THT",              cut, chan, 10, 0, 1000, "HT (GeV)", "HT", tag);
   DrawPlot("TMETLD",           cut, chan, 10, 0, 2,    "METLD (GeV)", "METLD", tag);
   DrawPlot("TCS",              cut, chan, 7, -3.5, 3.5,"Sum of charges", "CS", tag);
   DrawPlot("TMass",            cut, chan, 10, 0, 400,  "Invariant mass (GeV)", "Mass", tag);

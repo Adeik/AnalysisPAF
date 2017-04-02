@@ -23,15 +23,24 @@ const TString outputpath       = "/nfs/fanae/user/vrbouza/www/Results/";
 void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0, Float_t binN, TString Xtitle, TString name = "", TString tag = "0");
 
 void DrawPlots(TString chan = "ElMu", TString tag = "0"){
-  TString cut = "(TCat == 2 || TCat == 3 || TCat == 4)";
-  if (chan == "2lSS" || chan == "Elec" || chan == "Muon" || chan == "ElMu") {
-    cut   = "(TCat == 2)";
+  TString cut = "((TCat == 2 && (TChannel == 1 || TChannel == 2 || TChannel == 3)) || (TCat == 3 && TChannel == 4) || (TCat == 4 && TChannel == 5))";
+  if (chan == "2lSS") {
+    cut   = "(TCat == 2 && (TChannel == 1 || TChannel == 2 || TChannel == 3))";
+  }
+  if (chan == "Elec") {
+    cut   = "(TCat == 2 && TChannel == 3)";
+  }
+  if (chan == "Muon") {
+    cut   = "(TCat == 2 && TChannel == 2)";
+  }
+  if (chan == "ElMu") {
+    cut   = "(TCat == 2 && TChannel == 1)";
   }
   else if (chan == "3l") {
-    cut   = "(TCat == 3)";
+    cut   = "(TCat == 3 && TChannel == 4)";
   }
   else if (chan == "4l") {
-    cut   = "(TCat == 4)";
+    cut   = "(TCat == 4 && TChannel == 5)";
   }
 
   DrawPlot("TnTightLepton",    cut, chan, 6, 0, 6,     "nTightLep (#)", "nTightLepton", tag);
@@ -56,15 +65,14 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   Plot* p = new Plot(var, cut, chan, nbins, bin0, binN, "Title", Xtitle);
   p->SetPath(path+"ttH_temp/"); p->SetTreeName("MiniTree");
   p->SetPathSignal(path+"ttH_temp/");
-  p->verbose = true;
+  p->verbose        = false;
+  if (chan == "Elec" || chan == "Muon" || chan == "ElMu") name = name+"_2lSS";
   p->SetVarName(name);
   p->SetPlotFolder(outputpath);
-  p->doStackSignal   = true;
+  p->doStackSignal  = true;
 
-  /*for (UInt_t isample = 0; isample < sizeof(Signalmc)/sizeof(*Signalmc); isample++) {
-	  p->AddSample(Signalmc[isample], "ttH", itSignal, kRed);
-  }*/
-  
+  p->SetScaleMax(1.7);
+
   for (UInt_t isample = 0; isample < sizeof(TTWmc)/sizeof(*TTWmc); isample++) {
     p->AddSample(TTWmc[isample], "TTW", itBkg, kGreen-5);
   }
@@ -89,13 +97,16 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   for (UInt_t isample = 0; isample < sizeof(Data)/sizeof(*Data); isample++) {
 	  p->AddSample(Data[isample], "Data", itData);
   }
-
+  /*for (UInt_t isample = 0; isample < sizeof(Signalmc)/sizeof(*Signalmc); isample++) {
+	  p->AddSample(Signalmc[isample], "ttH", itSignal, kRed);
+  }*/
+  
   p->AddSample(Signalmc[0], "ttH", itBkg, kRed);
 
   p->doSetLogy = false;
+  if (var == "TnTightLepton") p->PrintYields("","","","txt");
   p->DrawStack(tag, 1);
   //p->doSetLogy = true;
   //p->DrawStack("0_log", 1);
-  p->PrintYields();
   delete p;
 }

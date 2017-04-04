@@ -135,6 +135,7 @@ void ttHAnalysis::SetEventBranches() {
   fTree->Branch("TisSS",         &isSS,          "isSS/B");
   fTree->Branch("TMET",          &MET,           "MET/F");
   fTree->Branch("TMHT",          &MHT,           "MHT/F");
+  fTree->Branch("TMHTLoose",     &MHTLoose,      "MHTLoose/F");
   fTree->Branch("THT",           &HT,            "HT/F");
   fTree->Branch("TMETLD",        &METLD,         "METLD/F");
   fTree->Branch("TCS",           &TCS,           "TCS/I");
@@ -483,6 +484,7 @@ void ttHAnalysis::InitialiseVariables() {
   MET             = 0;
   METLD           = 0;
   MHT             = 0;
+	MHTLoose				= 0;
   HT              = 0;
 
   TCat            = 0;
@@ -520,6 +522,7 @@ void ttHAnalysis::GetEventVariables() {
   isSS            = 0;
   METLD           = 0;
   MHT             = 0;
+	MHTLoose				= 0;
   HT              = 0;
 
   TCat            = 0;
@@ -549,6 +552,7 @@ void ttHAnalysis::GetEventVariables() {
   
   nLooseBTags     = GetnLooseBTags();
   MHT             = GetMHT();
+  MHTLoose        = GetMHTLoose();
   HT              = GetHT();
   METLD           = GetMETLD();
   
@@ -581,6 +585,17 @@ Float_t ttHAnalysis::GetMHT() {
   }
   for (UInt_t i = 0; i < TightLepton.size(); i++){
     mht += TightLepton[i].Pt();
+  }
+	return mht;
+}
+
+Float_t ttHAnalysis::GetMHTLoose() {
+	Float_t mht = 0;
+  for (UInt_t i = 0; i < Jets.size(); i++){
+    mht += Jets[i].Pt();
+  }
+  for (UInt_t i = 0; i < TightLepton.size(); i++){
+    mht += LooseLepton[i].Pt();
   }
 	return mht;
 }

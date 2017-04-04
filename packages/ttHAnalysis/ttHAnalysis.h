@@ -113,6 +113,7 @@ class ttHAnalysis : public PAFChainItemSelector {
 		Float_t GetMETLD();
     Float_t GetHT();
     Float_t GetMHT();
+    Float_  GetMHTLoose();
 		Int_t 	GetCS();
     Int_t   GetnLooseBTags();
 

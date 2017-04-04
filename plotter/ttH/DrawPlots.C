@@ -55,6 +55,7 @@ void DrawPlots(TString chan = "ElMu", TString tag = "0"){
   DrawPlot("TPtSubSubLeading", cut, chan, 10, 0, 200,  "Pt (GeV)", "PtSubSubLeading", tag);
   DrawPlot("TMET",             cut, chan, 10, 0, 400,  "MET (GeV)", "MET", tag);
   DrawPlot("TMHT",             cut, chan, 10, 0, 1000, "MHT (GeV)", "MHT", tag);
+  DrawPlot("TMHTLoose",        cut, chan, 10, 0, 1000, "MHTLoose (GeV)", "MHTLoose", tag);
   DrawPlot("THT",              cut, chan, 10, 0, 1000, "HT (GeV)", "HT", tag);
   DrawPlot("TMETLD",           cut, chan, 10, 0, 2,    "METLD (GeV)", "METLD", tag);
   DrawPlot("TCS",              cut, chan, 7, -3.5, 3.5,"Sum of charges", "CS", tag);

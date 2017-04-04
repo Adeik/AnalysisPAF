@@ -566,7 +566,8 @@ void ttHAnalysis::GetEventVariables() {
 
 Float_t ttHAnalysis::GetMETLD() {
 	Float_t metld;
-	metld = MET * 0.00397 + MHT * 0.00265;
+	//metld = MET * 0.00397 + MHT * 0.00265;
+	metld = MET * 0.00397 + MHTLoose * 0.00265;
 	return metld;
 }
 

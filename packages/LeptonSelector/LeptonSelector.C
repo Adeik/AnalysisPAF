@@ -57,8 +57,8 @@ void LeptonSelector::Initialise(){
   selLeptons 	  = std::vector<Lepton>();
   vetoLeptons 	= std::vector<Lepton>();
   looseLeptons 	= std::vector<Lepton>();
-	if(gPar == "LIDtop")  gSelection += iTopSelec;
-	if(gPar == "LIDstop") gSelection += iStopSelec;
+	if(gPar == "LIDtop")  gSelection = iTopSelec;
+	if(gPar == "LIDstop") gSelection = iStopSelec;
 	
 }
 

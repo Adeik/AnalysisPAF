@@ -77,7 +77,6 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   path            = path(0,path.Index("AnalysisPAF/")+12);
   
   path += "ttH_temp/";
-  p->SetTreeName("MiniTree");
   
   if (githead.Contains("lepidcomparison")) {
     cout << "Branch LEPIDCOMPARISON chosen" << endl;
@@ -97,6 +96,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   p->SetPlotFolder(outputpath);
   p->SetPath(path);
   p->SetPathSignal(path);
+  p->SetTreeName("MiniTree");
   p->verbose        = false;
   if (chan == "Elec" || chan == "Muon" || chan == "ElMu") name = name+"_2lSS";
   p->SetVarName(name);

@@ -19,6 +19,7 @@ const TString DiTriCuatrimc[13]= {"WGToLNuG", "ZGTo2LG", "WpWpJJ", "WWW", "WWZ",
 const TString Data[5]          = {"MuonEG", "SingleMuon", "SingleElec", "DoubleEG", "DoubleMuon"}; // Data samples
 
 
+
 void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0, Float_t binN, TString Xtitle, TString name = "", TString tag = "0");
 
 
@@ -135,10 +136,11 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   p->AddSample(Signalmc[0], "ttH", itBkg, kRed);
 
   p->doSetLogy = false;
-  p->SetYieldsTableName("Yields_"+chan);
+  p->SetYieldsTableName("Yields_"+chan+"_"+tag);
   if (var == "TnTightLepton") p->PrintYields("","","","txt");
   p->DrawStack(tag, 1);
   //p->doSetLogy = true;
   //p->DrawStack("0_log", 1);
   delete p;
+  delete path;
 }

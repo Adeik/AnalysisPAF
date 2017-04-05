@@ -81,7 +81,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   
   if (githead.Contains("lepidcomparison")) {
     cout << "Branch LEPIDCOMPARISON chosen" << endl;
-    //outputpath  += "lepidcomparison/";
+    outputpath  += "lepidcomparison/";
     path        += "lepidcomparison/";
     if (tag == "top")       path += "top/";
     else if (tag == "Stop") path += "Stop/";

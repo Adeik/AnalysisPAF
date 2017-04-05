@@ -423,7 +423,7 @@ void Plot::DrawStack(TString tag = "0", bool sav = 0){
   hratio->Draw("same");
 
   if(sav){ // Save the histograms
-    TString dir = plotFolder + "lepidcomparison/";
+    TString dir = plotFolder;
     TString plotname = (outputName == "")? varname + "_" + chan + "_" + tag : outputName;
 	  	
     gSystem->mkdir(dir, kTRUE);

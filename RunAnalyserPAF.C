@@ -23,6 +23,8 @@ Float_t xsec;
 Bool_t verbose = true;
 const Int_t nLHEWeight = 248;
 
+TString par;                                                                        // WOLOLO**********                
+
 enum             sel         {iStopSelec, iTopSelec, iTWSelec, iWWSelec, ittDMSelec, ittHSelec, nSel};
 const TString tagSel[nSel] = {"Stop",         "Top",     "TW",     "WW",     "ttDM",     "ttH"      };
 
@@ -31,6 +33,12 @@ void RunAnalyserPAF(TString sampleName, TString Selection, Int_t nSlots, Long64_
 	Int_t iChunck = Int_t(ThisWeight);
 	if(FirstEvent != 0) verbose = false;
   TString orig_sampleName = sampleName;
+
+  if (Selection.BeginsWith("ttH_") || Selection.BeginsWith("TTH_")) {              // WOLOLO**********
+    par = Selection.ReplaceAll("ttH_", "");
+    par = Selection.ReplaceAll("TTH_", "");
+    Selection = "ttH";
+  }
 
   vector<TString> tempfiles;
   Files.clear();
@@ -172,6 +180,10 @@ void RunAnalyserPAF(TString sampleName, TString Selection, Int_t nSlots, Long64_
 	//----------------------------------------------------------------------------
 	TString outputDir = "./" + tagSel[sel] + "_temp";
 	if(sampleName.BeginsWith("T2tt")) outputDir += "/T2tt/";
+  if (par == "LMVAet")  outputDir += "/lepMVAcomparison/extratight";
+  else if (par == "LMVAvt")  outputDir += "/lepMVAcomparison/verytight";
+  else if (par == "LMVAt") outputDir += "/lepMVAcomparison/tight";
+  else if (par == "LMVAm")  outputDir += "/lepMVAcomparison/medium";
 	gSystem->mkdir(outputDir, kTRUE);
 	if(sampleName.Contains("_ext2")) sampleName.ReplaceAll("_ext2",""); 
 	if(sampleName.Contains("_ext"))  sampleName.ReplaceAll("_ext",""); 
@@ -244,7 +256,7 @@ void RunAnalyserPAF(TString sampleName, TString Selection, Int_t nSlots, Long64_
 	myProject->SetInputParam("lspMass"      , lspMass          );
 	myProject->SetInputParam("doSyst"       , G_DoSystematics  ); 
 
-
+  myProject->SetInputParam("par"          , par              );
 	// Name of analysis class
 	//----------------------------------------------------------------------------
 	myProject->AddSelectorPackage("LeptonSelector");

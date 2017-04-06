@@ -21,6 +21,7 @@ void LeptonSelector::Initialise(){
   gIsData        = GetParam<Bool_t>("IsData");
   gIsFastSim     = GetParam<Bool_t>("IsFastSim");
   gSelection     = GetParam<Int_t>("iSelection");
+  gPar           = GetParam<TString>("par");
   localPath      = GetParam<TString>("WorkingDir");
   LepSF = new LeptonSF(localPath + "/InputFiles/");
 
@@ -332,7 +333,11 @@ Bool_t LeptonSelector::isGoodLepton(Lepton lep){
   	  passCSV			       = (jetBTagCSV < 0.8484);
   	  passId			       = mediumMuonId;
   	  passTightCharge	   = (TightCharge != 0);
-  	  passLepMVA		     = (MVATTH > 0.90);
+    	if (gPar == "LMVAet")     passLepMVA = (MVATTH > 0.65);
+    	else if (gPar == "LMVAvt")     passLepMVA = (MVATTH > 0.45);
+    	else if (gPar == "LMVAt") passLepMVA = (MVATTH > 0.15);
+    	else if (gPar == "LMVAm") passLepMVA = (MVATTH > -0.2);
+      else passLepMVA		     = (MVATTH > 0.90);
 
   	  passptRatio		     = 1;
   	  passElecCutBasedId = 1;
@@ -347,7 +352,11 @@ Bool_t LeptonSelector::isGoodLepton(Lepton lep){
   	  passptRatio		     = 1;
   	  passCSV			       = (jetBTagCSV < 0.8484);
   	  passTightCharge	   = (TightCharge != 0);
-  	  passLepMVA		     = (MVATTH > 0.90);
+      if (gPar == "LMVAet")      passLepMVA = (MVATTH > 0.85);
+    	else if (gPar == "LMVAvt") passLepMVA = (MVATTH > 0.75);
+    	else if (gPar == "LMVAt")  passLepMVA = (MVATTH > 0.65);
+    	else if (gPar == "LMVAm")  passLepMVA = (MVATTH > 0.5);
+      else passLepMVA		     = (MVATTH > 0.90);
 
   	  passId			       = 1;
   	}

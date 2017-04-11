@@ -148,13 +148,14 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
 	  p->AddSample(DiTriCuatrimc[isample], "Di&Tri&Cuatriboson", itBkg, kAzure-9);
   }
   for (UInt_t isample = 0; isample < sizeof(Data)/sizeof(*Data); isample++) {
-	  p->AddSample(Data[isample], "Data", itData);
+	  p->AddSample(Data[isample], "Data", itData,kBlack);
   }
   /*for (UInt_t isample = 0; isample < sizeof(Signalmc)/sizeof(*Signalmc); isample++) {
 	  p->AddSample(Signalmc[isample], "ttH", itSignal, kRed);
   }*/
   p->AddSample(Signalmc[0], "ttH", itBkg, kRed);
-
+  
+  p->AddSystematic("stat");
   p->doSetLogy = false;
   p->SetYieldsTableName("Yields_"+chan+"_"+tag);
   if (var == "TnTightLepton") p->PrintYields("","","","txt");

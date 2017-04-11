@@ -363,6 +363,7 @@ void Plot::DrawStack(TString tag = "0", bool sav = 0){
     hStack->SetMaximum(Max*ScaleMax);
     hStack->SetMinimum(PlotMinimum);
   }
+  hStack->Draw("hist");
   hStack->GetYaxis()->SetTitle("Number of Events");
   hStack->GetYaxis()->SetTitleSize(0.06);
   hStack->GetYaxis()->SetTitleOffset(0.5);
@@ -397,7 +398,6 @@ void Plot::DrawStack(TString tag = "0", bool sav = 0){
       else VSignals.at(i)->Draw("lsame");
     }
   } 
-  hStack->Draw("hist");
 
   // Draw systematics histo
   hAllBkg->SetFillStyle(3145);

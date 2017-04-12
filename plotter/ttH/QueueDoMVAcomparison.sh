@@ -7,7 +7,7 @@ echo "%%%%%> DONE"
 echo ""
 if [ "$1" == "an" ]; then
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starting analysis with extra tight wp"
-  MVAet=$(qsub -q proof -l nodes=1:ppn=$2 DottHAnalysis.sh -F \"an $2 ttH_LMVAet\")
+  MVAet=$(qsub -q proof -l nodes=1:ppn=$2 -F \"an $2 ttH_LMVAet\" DottHAnalysis.sh)
   echo $MVAet
   echo "%%%%%> DONE"
   echo ""

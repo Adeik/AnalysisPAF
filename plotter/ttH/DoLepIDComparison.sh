@@ -3,9 +3,9 @@ echo "%%%%%%%%%%%%%%%%%%%%%%% ttH ANALYSIS: COMPARISON BETWEEN TOP, STOP AND TTH
 echo ""
 echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Setting up the environment"
 source pre_start.sh
+echo "%%%%%> DONE"
+echo ""
 if [ "$1" == "an" ]; then
-  echo "%%%%%> DONE"
-  echo ""
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starting TOP analysis"
   source DottHAnalysis.sh an $2 ttH_LIDtop
   echo "%%%%%> DONE"
@@ -18,12 +18,6 @@ if [ "$1" == "an" ]; then
   source DottHAnalysis.sh an $2 ttH_LIDtth
 elif [ "$1" == "pl" ]; then
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ttH PLOTTER EXECUTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
-  echo ""
-  echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Setting up the environment"
-  source pre_start.sh
-
-  echo "%%%%%> DONE"
-  echo ""
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starting to plot"
   cd ..
   root -l -b -q "ttH/DrawPlots.C(\"Muon\",\"top\")"

@@ -184,6 +184,7 @@ void RunAnalyserPAF(TString sampleName, TString Selection, Int_t nSlots, Long64_
   else if (par == "LMVAvt")  outputDir += "/lepMVAcomparison/verytight";
   else if (par == "LMVAt") outputDir += "/lepMVAcomparison/tight";
   else if (par == "LMVAm")  outputDir += "/lepMVAcomparison/medium";
+  else if (par == "LMVAtth")  outputDir += "/lepMVAcomparison/tth";
 	gSystem->mkdir(outputDir, kTRUE);
 	if(sampleName.Contains("_ext2")) sampleName.ReplaceAll("_ext2",""); 
 	if(sampleName.Contains("_ext"))  sampleName.ReplaceAll("_ext",""); 

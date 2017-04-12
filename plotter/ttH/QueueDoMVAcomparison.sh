@@ -7,27 +7,27 @@ echo "%%%%%> DONE"
 echo ""
 if [ "$1" == "an" ]; then
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starting analysis with extra tight wp"
-  MVAet = $(qsub -q proof -l nodes=1:ppn=$2 DottHAnalysis.sh -F \"an $2 ttH_LMVAet\")
+  MVAet=$(qsub -q proof -l nodes=1:ppn=$2 DottHAnalysis.sh -F \"an $2 ttH_LMVAet\")
   echo $MVAet
   echo "%%%%%> DONE"
   echo ""
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starting analysis with very tight wp"
-  MVAvt = $(qsub -q proof -l nodes=1:ppn=$2 -W depend=afterany:$MVAet DottHAnalysis.sh -F \"an $2 ttH_LMVAvt\")
+  MVAvt=$(qsub -q proof -l nodes=1:ppn=$2 -W depend=afterany:$MVAet DottHAnalysis.sh -F \"an $2 ttH_LMVAvt\")
   echo $MVAvt
   echo "%%%%%> DONE"
   echo ""
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starting analysis with tight wp"
-  MVAt = $(qsub -q proof -l nodes=1:ppn=$2 -W depend=afterany:$MVAvt DottHAnalysis.sh -F \"an $2 ttH_LMVAt\")
+  MVAt=$(qsub -q proof -l nodes=1:ppn=$2 -W depend=afterany:$MVAvt DottHAnalysis.sh -F \"an $2 ttH_LMVAt\")
   echo $MVAt
   echo "%%%%%> DONE"
   echo ""
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starting analysis with medium wp"
-  MVAm = $(qsub -q proof -l nodes=1:ppn=$2 -W depend=afterany:$MVAt DottHAnalysis.sh -F \"an $2 ttH_LMVAm\")
+  MVAm=$(qsub -q proof -l nodes=1:ppn=$2 -W depend=afterany:$MVAt DottHAnalysis.sh -F \"an $2 ttH_LMVAm\")
   echo $MVAm
   echo "%%%%%> DONE"
   echo ""
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starting analysis with ttH wp"
-  MVAtth = $(qsub -q proof -l nodes=1:ppn=$2 -W depend=afterany:$MVAm DottHAnalysis.sh -F \"an $2 ttH_LMVAtth\")
+  MVAtth=$(qsub -q proof -l nodes=1:ppn=$2 -W depend=afterany:$MVAm DottHAnalysis.sh -F \"an $2 ttH_LMVAtth\")
   echo $MVAtth
   echo "%%%%%> DONE"
   echo ""

@@ -3,6 +3,7 @@
 *.d
 *.pcm
 .paf/
+DottHAnalysis.sh.*
 
 # Exclude files by emacs
 *~

@@ -8,8 +8,7 @@ if [ "$1" == "an" ]; then
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ttH ANALYSIS EXECUTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
   echo ""
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Creating job..."
-  qsub -q proof -l nodes=1:ppn=$2 -o /nfs/fanae/user/vrbouza/Documents/TFG/Executions/normal_o_\$TASK_ID.txt -e /nfs/fanae/user/vrbouza/Documents/TFG/Executions/normal_e_\$TASK_ID.txt -F "an $2 $3" DottHAnalysis.sh
-  cd plotter/ttH
+  qsub -q proof -l nodes=1:ppn=$2 -o /nfs/fanae/user/vrbouza/Documents/TFG/Executions/RANDOMlogs -e /nfs/fanae/user/vrbouza/Documents/TFG/Executions/RANDOMlogs -F "an $2 $3" DottHAnalysis.sh
 elif [ "$1" == "pl" ]; then
   echo ""
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ttH PLOTTER EXECUTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"

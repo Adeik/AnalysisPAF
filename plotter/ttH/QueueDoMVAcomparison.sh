@@ -25,7 +25,7 @@ elif [ "$1" == "pl" ]; then
   source QueueDottHAnalysis.sh pl et
   source QueueDottHAnalysis.sh pl vt
   source QueueDottHAnalysis.sh pl t
-  source QueueDottHAnalysis.sh pl mt
+  source QueueDottHAnalysis.sh pl m
   source QueueDottHAnalysis.sh pl tth
 
 else

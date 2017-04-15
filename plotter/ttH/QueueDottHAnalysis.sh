@@ -15,7 +15,7 @@ elif [ "$1" == "pl" ]; then
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ttH PLOTTER EXECUTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
   echo ""
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Creating job..."
-  qsub -o /nfs/fanae/user/vrbouza/Documents/TFG/Executions/LEPIDCOMPARISONlogs -e /nfs/fanae/user/vrbouza/Documents/TFG/Executions/LEPIDCOMPARISONlogs -F $2 PlotThings.sh
+  qsub -o /nfs/fanae/user/vrbouza/Documents/TFG/Executions/LEPIDCOMPARISONlogs -e /nfs/fanae/user/vrbouza/Documents/TFG/Executions/LEPIDCOMPARISONlogs -F "$2" PlotThings.sh
 else
     echo "ERROR - No valid arguments given"
     echo "Please, execute this script with a valid argument"

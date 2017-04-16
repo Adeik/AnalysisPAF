@@ -8,18 +8,17 @@ R__LOAD_LIBRARY(Plot.C+)
 #include <iostream>
 #include <fstream>
 
-const TString Signalmc[1]      = {"TTHNonbb"};                   // ttH
-const TString TTWmc[2] 	       = {"TTWToLNu1", "TTWToQQ"};			 // TTW
-const TString TTZmc[2] 	       = {"TTZToLLNuNu", "TTZToQQ"};	   // TTZ
-const TString TTbarmc[2] 	     = {"TTGJets", "TTJets_aMCatNLO"}; // TTbar
-const TString WJetsmc[1]       = {"WJetsToLNu_aMCatNLO"};        // WJets
-const TString STmc[6]    	     = {"TW", "TbarW", "T_tch", "Tbar_tch", "TToLeptons_sch_amcatnlo","TGJets"};// ST
-const TString DYmc[2]          = {"DYJetsToLL_M50_MLM", "DYJetsToLL_M5to50_MLM"};                         // DY at LO (comment/uncomment as desired)
+const TString Signalmc[]      = {"TTHNonbb"};                   // ttH
+const TString TTWmc[] 	      = {"TTWToLNu1", "TTWToQQ"};			 // TTW
+const TString TTZmc[] 	      = {"TTZToLLNuNu", "TTZToQQ"};	   // TTZ
+const TString TTbarmc[] 	    = {"TTGJets", "TTJets_aMCatNLO"}; // TTbar
+const TString WJetsmc[]       = {"WJetsToLNu_aMCatNLO"};        // WJets
+const TString STmc[]    	    = {"TW", "TbarW", "T_tch", "Tbar_tch", "TToLeptons_sch_amcatnlo","TGJets"};// ST
+const TString DYmc[]          = {"DYJetsToLL_M50_MLM", "DYJetsToLL_M5to50_MLM"};                         // DY at LO (comment/uncomment as desired)
 //const TString DYmc[2]          = {"DYJetsToLL_M50_aMCatNLO", "DYJetsToLL_M10to50_aMCatNLO"};              // DY at NLO (comment/uncomment as desired)
-const TString DiTriCuatrimc[13]= {"WGToLNuG", "ZGTo2LG", "WpWpJJ", "WWW", "WWZ", "WZZ", "ZZZ", "WW", "tZq_ll", "TTTT", "WZTo3LNu_amcatnlo", "WWTo2L2Nu", "ZZ"}; // Di&Tri&Cuatriboson
-const TString Data[5]          = {"MuonEG", "SingleMuon", "SingleElec", "DoubleEG", "DoubleMuon"};        // Data samples
+const TString DiTriCuatrimc[] = {"WGToLNuG", "ZGTo2LG", "WpWpJJ", "WWW", "WWZ", "WZZ", "ZZZ", "WW", "tZq_ll", "TTTT", "WZTo3LNu_amcatnlo", "WWTo2L2Nu", "ZZ"}; // Di&Tri&Cuatriboson
+const TString Data[]          = {"MuonEG", "SingleMuon", "SingleElec", "DoubleEG", "DoubleMuon"};        // Data samples
 UInt_t counter = 0;
-
 
 
 void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0, Float_t binN, TString Xtitle, TString name = "", TString tag = "0");
@@ -27,25 +26,11 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
 
 void DrawPlots(TString chan = "ElMu", TString tag = "0"){
   TString cut = "((TCat == 2 && (TChannel == 1 || TChannel == 2 || TChannel == 3)) || (TCat == 3 && TChannel == 4) || (TCat == 4 && TChannel == 5))";
-  if (chan == "2lSS") {
-    cut   = "(TCat == 2 && (TChannel == 1 || TChannel == 2 || TChannel == 3))";
-  }
-  if (chan == "Elec") {
-    cut   = "(TCat == 2 && TChannel == 3)";
-  }
-  if (chan == "Muon") {
-    cut   = "(TCat == 2 && TChannel == 2)";
-  }
-  if (chan == "ElMu") {
-    cut   = "(TCat == 2 && TChannel == 1)";
-  }
-  else if (chan == "3l") {
-    cut   = "(TCat == 3 && TChannel == 4)";
-  }
-  else if (chan == "4l") {
-    cut   = "(TCat == 4 && TChannel == 5)";
-  }
-  
+  if (chan == "2lSS")     cut = "(TCat == 2 && (TChannel == 1 || TChannel == 2 || TChannel == 3))";
+  else if (chan == "Elec" || chan == "Muon" || chan == "ElMu") cut = "(TCat == 2)";
+  else if (chan == "3l")  cut = "(TCat == 3)";
+  else if (chan == "4l")  cut = "(TCat == 4)";
+
   DrawPlot("TnTightLepton",    cut, chan, 6, 0, 6,     "nTightLep (#)", "nTightLepton", tag);
   DrawPlot("TnFakeableLepton", cut, chan, 5, 0, 5,     "nFakeLep (#)", "nFakeLepton", tag);
   DrawPlot("TnLooseLepton",    cut, chan, 5, 0, 5,     "nLooseLep (#)", "nLooseLepton", tag);
@@ -65,23 +50,26 @@ void DrawPlots(TString chan = "ElMu", TString tag = "0"){
 }
 
 void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0, Float_t binN, TString Xtitle, TString name, TString tag = "0"){
-  Plot* p = new Plot(var, cut, chan, nbins, bin0, binN, "Title", Xtitle);
-  // TString path                     = "/nfs/fanae/user/vrbouza/Documents/TFG/AnalysisPAF/";
-  TString   outputpath             = "/nfs/fanae/user/vrbouza/www/Results/";
+  Plot* p     = new Plot(var, cut, chan, nbins, bin0, binN, "Title", Xtitle);
+  p->verbose  = true;
+  
+  
+  // Determination of path and output path =====================================
+  TString   outputpath = "/nfs/fanae/user/vrbouza/www/Results/";
+  
   string    cline;
   ifstream  gitinfo("../.git/HEAD");
   getline(gitinfo,cline);
   TString   githead(cline);
   string    cpath = __FILE__ ;
   TString   path(cpath);
-  path            = path(0,path.Index("AnalysisPAF/")+12);
-  
-  path += "ttH_temp/";
+  path      = path(0,path.Index("AnalysisPAF/")+12);
+  path      += "ttH_temp/";
   
   if (githead.Contains("lepidcomparison")) {
     if (counter == 0){
       cout << endl;
-      cout << "Branch LEPIDCOMPARISON chosen" << endl;
+      cout << "+ Branch LEPIDCOMPARISON chosen" << endl;
       cout << endl;
       counter = 1;
     }
@@ -94,7 +82,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   else if (githead.Contains("random")) {
     if (counter == 0) {
       cout << endl;
-      cout << "Branch RANDOM chosen" << endl;
+      cout << "+ Branch RANDOM chosen" << endl;
       cout << endl;
       counter = 1;
     }
@@ -104,7 +92,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   else if (githead.Contains("lepMVAcomparison")) {
     if (counter == 0) {
       cout << endl;
-      cout << "Branch LEPMVACOMPARISON chosen" << endl;
+      cout << "+ Branch LEPMVACOMPARISON chosen" << endl;
       cout << endl;
       counter = 1;
     }
@@ -119,25 +107,42 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   else {
     if (counter == 0) {
       cout << endl;
-      cout << "Branch MASTER chosen" << endl;
+      cout << "+ Branch MASTER chosen" << endl;
       cout << endl;
       counter = 1;
     }
   }
   
+  cout << "+ Path to the root files: " << path << endl;
+  cout << "+ Output path: " << outputpath << endl;
+  cout << endl;
+  
   p->SetPlotFolder(outputpath);
   p->SetPath(path);
   p->SetPathSignal(path);
+  
+  
+  // Minitree settings =========================================================
   p->SetTreeName("MiniTree");
-  p->verbose        = true;
   if (chan == "Elec" || chan == "Muon" || chan == "ElMu") name = name+"_2lSS";
   p->SetVarName(name);
-  p->doStackSignal  = true;
-
+  
+  
+  // Histogram settings ========================================================
   p->SetScaleMax(1.7);
   p->SetRatioMin(0);
   p->SetRatioMax(2);
+  p->SetSignalStyle("Fill");
+  p->AddSystematic("stat");
+  p->doSetLogy = false;
   
+  
+  // Yields table settings =====================================================
+  p->SetTableFormats("%1.4f");
+  p->SetYieldsTableName("Yields_"+chan+"_"+tag);
+  
+  
+  // Samples import ============================================================
   for (UInt_t isample = 0; isample < sizeof(TTWmc)/sizeof(*TTWmc); isample++) {
     p->AddSample(TTWmc[isample], "TTW", itBkg, kGreen-5);
   }
@@ -166,14 +171,11 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
 	  p->AddSample(Signalmc[isample], "ttH", itSignal, kRed);
   }
   //p->AddSample(Signalmc[0], "ttH", itBkg, kRed);
-  p->SetTableFormats("%1.4f");
   
-  p->AddSystematic("stat");
-  p->doSetLogy = false;
-  p->SetYieldsTableName("Yields_"+chan+"_"+tag);
+
+  // Print and plot ============================================================
   if (var == "TnTightLepton") p->PrintYields("","","","txt");
   p->DrawStack(tag, 1);
-  //p->doSetLogy = true;
-  //p->DrawStack("0_log", 1);
+  
   delete p;
 }

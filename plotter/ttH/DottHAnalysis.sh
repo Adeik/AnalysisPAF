@@ -3,7 +3,6 @@
 #                         Analysis of the ttH process
 #
 #===============================================================================
-cd /nfs/fanae/user/vrbouza/Documents/TFG/lepMVAcomparison/AnalysisPAF/plotter/ttH
 if [ "$1" == "an" ]; then
     echo ""
     echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ttH ANALYSIS EXECUTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"

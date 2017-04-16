@@ -5,7 +5,7 @@
 #===============================================================================
 
 logpath="/nfs/fanae/user/vrbouza/Documents/TFG/Executions/"
-ext="NORMALlogs"
+ext="LEPIDCOMPARISONlogs"
 logpath=$logpath$ext
 
 workingpath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"

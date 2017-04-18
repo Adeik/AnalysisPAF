@@ -9,18 +9,24 @@ workingpath="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 if [ "$1" == "an" ]; then
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Creating jobs..."
-  LIDtop = $(qsub -q proof -l nodes=1:ppn=$2 -o $logpath -e $logpath -d $workingpath DottHAnalysis.sh -F \"an $2 ttH_LIDtop\")
+  LIDtop = $(qsub -q proof -l nodes=1:ppn=$2 -o $logpath -e $logpath -d $workingpath DottHAnalysis.sh -F "an $2 ttH_LIDtop")
   echo $LIDtop
-  LIDstop = $(qsub -q proof -l nodes=1:ppn=$2 -o $logpath -e $logpath -d $workingpath -W depend=afterany:$LIDtop DottHAnalysis.sh -F \"an $2 ttH_LIDstop\")
+  
+  LIDstop = $(qsub -q proof -l nodes=1:ppn=$2 -o $logpath -e $logpath -d $workingpath -W depend=afterany:$LIDtop DottHAnalysis.sh -F "an $2 ttH_LIDstop")
   echo $LIDstop
-  LIDtth = $(qsub -q proof -l nodes=1:ppn=$2 -o $logpath -e $logpath -d $workingpath -W depend=afterany:$LIDstop DottHAnalysis.sh -F \"an $2 ttH_LIDtth\")
+  
+  LIDtth = $(qsub -q proof -l nodes=1:ppn=$2 -o $logpath -e $logpath -d $workingpath -W depend=afterany:$LIDstop DottHAnalysis.sh -F "an $2 ttH_LIDtth")
   echo $LIDtth
-  checkLIDtop=$(qsub -q proof -l nodes=1:ppn=$2 -o $logpath -e $logpath -d $workingpath -W depend=afterany:$LIDtth -F "$2 $3 /nfs/fanae/user/vrbouza/Documents/TFG/lepidcomparison/AnalysisPAF/ttH_temp/lepidcomparison/top" check.sh)
+  
+  checkLIDtop=$(qsub -q proof -l nodes=1:ppn=$2 -o $logpath -e $logpath -d $workingpath -W depend=afterany:$LIDtth -F "$2 ttH_LIDtop /nfs/fanae/user/vrbouza/Documents/TFG/lepidcomparison/AnalysisPAF/ttH_temp/lepidcomparison/top" check.sh)
   echo $checkLIDtop
-  checkLIDstop=$(qsub -q proof -l nodes=1:ppn=$2 -o $logpath -e $logpath -d $workingpath -W depend=afterany:$checkLIDtop -F "$2 $3 /nfs/fanae/user/vrbouza/Documents/TFG/lepidcomparison/AnalysisPAF/ttH_temp/lepidcomparison/Stop" check.sh)
+  
+  checkLIDstop=$(qsub -q proof -l nodes=1:ppn=$2 -o $logpath -e $logpath -d $workingpath -W depend=afterany:$checkLIDtop -F "$2 ttH_LIDstop /nfs/fanae/user/vrbouza/Documents/TFG/lepidcomparison/AnalysisPAF/ttH_temp/lepidcomparison/Stop" check.sh)
   echo $checkLIDstop
-  checkLIDtth=$(qsub -q proof -l nodes=1:ppn=$2 -o $logpath -e $logpath -d $workingpath -W depend=afterany:$checkLIDstop -F "$2 $3 /nfs/fanae/user/vrbouza/Documents/TFG/lepidcomparison/AnalysisPAF/ttH_temp/lepidcomparison/ttH" check.sh)
+  
+  checkLIDtth=$(qsub -q proof -l nodes=1:ppn=$2 -o $logpath -e $logpath -d $workingpath -W depend=afterany:$checkLIDstop -F "$2 ttH_LIDtth /nfs/fanae/user/vrbouza/Documents/TFG/lepidcomparison/AnalysisPAF/ttH_temp/lepidcomparison/ttH" check.sh)
   echo $checkLIDtth
+  
 elif [ "$1" == "pl" ]; then
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ttH PLOTTER EXECUTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Creating jobs..."

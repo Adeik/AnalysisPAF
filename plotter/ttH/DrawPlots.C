@@ -105,6 +105,15 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     else if (tag == "m")    path += "medium/";
     else if (tag == "tth")  path += "tth/";
   }
+  else if (githead.Contains("test")) {
+    if (counter == 0) {
+      cout << endl;
+      cout << "+ Branch TEST chosen" << endl;
+      cout << endl;
+      counter = 1;
+    }
+    outputpath  += "test/";
+  }
   else {
     if (counter == 0) {
       cout << endl;
@@ -114,10 +123,12 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     }
   }
   
-  cout << "+ Path to the root files: " << path << endl;
-  cout << "+ Output path: " << outputpath << endl;
-  cout << endl;
-  
+  if (counter == 0) {
+    cout << "+ Path to the root files: " << path << endl;
+    cout << "+ Output path: " << outputpath << endl;
+    cout << endl;
+  }
+    
   p->SetPlotFolder(outputpath);
   p->SetPath(path);
   p->SetPathSignal(path);
@@ -164,7 +175,9 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   p->SetScaleMax(1.7);
   p->SetRatioMin(0);
   p->SetRatioMax(2);
-  p->SetSignalStyle("Fill");
+  if (!githead.Contains("test")) {
+    p->SetSignalStyle("Fill");
+  }
   p->AddSystematic("stat");
   p->doSetLogy = false;
   

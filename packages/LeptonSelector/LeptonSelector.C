@@ -389,6 +389,8 @@ Bool_t LeptonSelector::isVetoLepton(Lepton lep){
     return true;
   }
   else if(gSelection == ittHSelec || gSelection == iWZSelec){
+    if(gPar == "LIDtop")  gSelection = iTopSelec;
+    if(gPar == "LIDstop") gSelection = iStopSelec;
   	// 	Fakeable muons for multilepton ttH Analysis:
   	// Tight muons without medium muon ID, tight charge and lepton MVA cuts.
   	//
@@ -444,9 +446,6 @@ Bool_t LeptonSelector::isVetoLepton(Lepton lep){
     return true;
   }
   
-  if(gPar == "LIDtop")  gSelection = iTopSelec;
-  if(gPar == "LIDstop") gSelection = iStopSelec;
-  
   return false;
 }
 
@@ -458,6 +457,8 @@ Bool_t LeptonSelector::isLooseLepton(Lepton lep){
   if(gPar == "LIDstop") gSelection = ittHSelec;
   
   if(gSelection == ittHSelec || gSelection == iWZSelec){
+    if(gPar == "LIDtop")  gSelection = iTopSelec;
+    if(gPar == "LIDstop") gSelection = iStopSelec;
   	// 	Loose muons for multilepton ttH Analysis:
   	// Fakeable muons without jetCSV cut and with pt>5.
   	//
@@ -500,8 +501,6 @@ Bool_t LeptonSelector::isLooseLepton(Lepton lep){
     return true;
   }
   
-  if(gPar == "LIDtop")  gSelection = iTopSelec;
-  if(gPar == "LIDstop") gSelection = iStopSelec;
 }
 
 

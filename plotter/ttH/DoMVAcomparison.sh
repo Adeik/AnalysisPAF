@@ -22,6 +22,14 @@ if [ "$1" == "an" ]; then
   source DottHAnalysis.sh an $2 ttH_LMVAtth
   echo "%%%%%> DONE"
   echo ""
+  echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starting analysis with 0.95 wp"
+  source DottHAnalysis.sh an $2 ttH_LMVAtth95
+  echo "%%%%%> DONE"
+  echo ""
+  echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starting analysis with 0.97 wp"
+  source DottHAnalysis.sh an $2 ttH_LMVAtth97
+  echo "%%%%%> DONE"
+  echo ""
 elif [ "$1" == "pl" ]; then
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ttH PLOTTER EXECUTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
 
@@ -32,6 +40,8 @@ elif [ "$1" == "pl" ]; then
   source DottHAnalysis.sh pl t
   source DottHAnalysis.sh pl m
   source DottHAnalysis.sh pl tth
+  source DottHAnalysis.sh pl tth95
+  source DottHAnalysis.sh pl tth97
 
 else
     echo "ERROR - No valid arguments given"

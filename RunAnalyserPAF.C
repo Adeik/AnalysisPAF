@@ -180,11 +180,13 @@ void RunAnalyserPAF(TString sampleName, TString Selection, Int_t nSlots, Long64_
 	//----------------------------------------------------------------------------
 	TString outputDir = "./" + tagSel[sel] + "_temp";
 	if(sampleName.BeginsWith("T2tt")) outputDir += "/T2tt/";
-  if (par == "LMVAet")  outputDir += "/lepMVAcomparison/extratight";
-  else if (par == "LMVAvt")  outputDir += "/lepMVAcomparison/verytight";
-  else if (par == "LMVAt") outputDir += "/lepMVAcomparison/tight";
-  else if (par == "LMVAm")  outputDir += "/lepMVAcomparison/medium";
-  else if (par == "LMVAtth")  outputDir += "/lepMVAcomparison/tth";
+  if      (par == "LMVAet")     outputDir += "/lepMVAcomparison/extratight";
+  else if (par == "LMVAvt")     outputDir += "/lepMVAcomparison/verytight";
+  else if (par == "LMVAt")      outputDir += "/lepMVAcomparison/tight";
+  else if (par == "LMVAm")      outputDir += "/lepMVAcomparison/medium";
+  else if (par == "LMVAtth")    outputDir += "/lepMVAcomparison/tth";
+  else if (par == "LMVAtth95")  outputDir += "/lepMVAcomparison/tth95";
+  else if (par == "LMVAtth97")  outputDir += "/lepMVAcomparison/tth97";
 	gSystem->mkdir(outputDir, kTRUE);
 	if(sampleName.Contains("_ext2")) sampleName.ReplaceAll("_ext2",""); 
 	if(sampleName.Contains("_ext"))  sampleName.ReplaceAll("_ext",""); 

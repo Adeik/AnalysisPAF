@@ -415,10 +415,12 @@ Bool_t LeptonSelector::isGoodLepton(Lepton lep){
   	  passCSV			       = (jetBTagCSV < 0.8484);
   	  passId			       = mediumMuonId;
   	  passTightCharge	   = (TightCharge != 0);
-    	if (gPar == "LMVAet")     passLepMVA = (MVATTH > 0.65);
-    	else if (gPar == "LMVAvt")     passLepMVA = (MVATTH > 0.45);
-    	else if (gPar == "LMVAt") passLepMVA = (MVATTH > 0.15);
-    	else if (gPar == "LMVAm") passLepMVA = (MVATTH > -0.2);
+    	if      (gPar == "LMVAet")    passLepMVA = (MVATTH > 0.65);
+    	else if (gPar == "LMVAvt")    passLepMVA = (MVATTH > 0.45);
+    	else if (gPar == "LMVAt")     passLepMVA = (MVATTH > 0.15);
+    	else if (gPar == "LMVAm")     passLepMVA = (MVATTH > -0.2);
+    	else if (gPar == "LMVAtth95") passLepMVA = (MVATTH > 0.95);
+    	else if (gPar == "LMVAtth97") passLepMVA = (MVATTH > 0.97);
       else passLepMVA		     = (MVATTH > 0.90);
 
   	  passptRatio		     = 1;
@@ -434,10 +436,12 @@ Bool_t LeptonSelector::isGoodLepton(Lepton lep){
   	  passptRatio		     = 1;
   	  passCSV			       = (jetBTagCSV < 0.8484);
   	  passTightCharge	   = (TightCharge != 0);
-      if (gPar == "LMVAet")      passLepMVA = (MVATTH > 0.85);
-    	else if (gPar == "LMVAvt") passLepMVA = (MVATTH > 0.75);
-    	else if (gPar == "LMVAt")  passLepMVA = (MVATTH > 0.65);
-    	else if (gPar == "LMVAm")  passLepMVA = (MVATTH > 0.5);
+      if      (gPar == "LMVAet")    passLepMVA = (MVATTH > 0.85);
+    	else if (gPar == "LMVAvt")    passLepMVA = (MVATTH > 0.75);
+    	else if (gPar == "LMVAt")     passLepMVA = (MVATTH > 0.65);
+    	else if (gPar == "LMVAm")     passLepMVA = (MVATTH > 0.50);
+    	else if (gPar == "LMVAtth95") passLepMVA = (MVATTH > 0.95);
+    	else if (gPar == "LMVAtth97") passLepMVA = (MVATTH > 0.97);
       else passLepMVA		     = (MVATTH > 0.90);
 
   	  passId			       = 1;

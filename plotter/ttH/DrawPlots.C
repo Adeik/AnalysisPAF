@@ -36,6 +36,7 @@ void DrawPlots(TString chan = "ElMu", TString tag = "0"){
   else if (chan == "4l")  cut = "(TCat == 4)";
   
   DrawPlot("TnTightLepton",    cut, chan, 6, 0, 6,     "nTightLep (#)", "nTightLepton", tag);
+  DrawPlot("TnTightLepton",    cut, chan, 6, 0, 6,     "nTightLep (#)", "nTightLepton", tag);
   DrawPlot("TnFakeableLepton", cut, chan, 5, 0, 5,     "nFakeLep (#)", "nFakeLepton", tag);
   DrawPlot("TnLooseLepton",    cut, chan, 5, 0, 5,     "nLooseLep (#)", "nLooseLepton", tag);
   DrawPlot("TnTaus",           cut, chan, 3, 0, 3,     "nTaus (#)", "nTaus", tag);
@@ -78,7 +79,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     }
     outputpath  += "lepidcomparison/";
     path        += "lepidcomparison/";
-    if (tag == "top")       path += "top/";
+    if      (tag == "top")  path += "top/";
     else if (tag == "Stop") path += "Stop/";
     else if (tag == "ttH")  path += "ttH/";
   }
@@ -99,11 +100,13 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     }
     path        += "lepMVAcomparison/";
     outputpath  += "lepMVAcomparison/";
-    if (tag == "et")        path += "extratight/";
-    else if (tag == "vt")   path += "verytight/";
-    else if (tag == "t")    path += "tight/";
-    else if (tag == "m")    path += "medium/";
-    else if (tag == "tth")  path += "tth/";
+    if      (tag == "et")     path += "extratight/";
+    else if (tag == "vt")     path += "verytight/";
+    else if (tag == "t")      path += "tight/";
+    else if (tag == "m")      path += "medium/";
+    else if (tag == "tth")    path += "tth/";
+    else if (tag == "tth_95") path += "tth_95/";
+    else if (tag == "tth_97") path += "tth_97/";
   }
   else if (githead.Contains("test")) {
     if (counter == 0) {
@@ -164,8 +167,12 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   for (UInt_t isample = 0; isample < sizeof(Data)/sizeof(*Data); isample++) {
 	  p->AddSample(Data[isample], "Data", itData,kBlack);
   }
-  for (UInt_t isample = 0; isample < sizeof(Signalmc)/sizeof(*Signalmc); isample++) {
-	  p->AddSample(Signalmc[isample], "ttH", itSignal, kRed);
+  if (counter == 0) {
+    for (UInt_t isample = 0; isample < sizeof(Signalmc)/sizeof(*Signalmc); isample++) {
+	    p->AddSample(Signalmc[isample], "ttH", itSignal, kRed);
+    }
+  } else {
+    p->AddSample(Signalmc[0], "ttH", itBkg, kRed);
   }
   //p->AddSample(Signalmc[0], "ttH", itBkg, kRed);
   */
@@ -191,7 +198,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   
 
   // Print and plot ============================================================
-  p->DrawStack(tag, 1);
+  if (counter != 0) p->DrawStack(tag, 1);
   
   delete p;
 }

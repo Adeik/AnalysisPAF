@@ -102,8 +102,8 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     else if (tag == "t")      path += "tight/";
     else if (tag == "m")      path += "medium/";
     else if (tag == "tth")    path += "tth/";
-    else if (tag == "tth_95") path += "tth_95/";
-    else if (tag == "tth_97") path += "tth_97/";
+    else if (tag == "tth95")  path += "tth95/";
+    else if (tag == "tth97")  path += "tth97/";
   }
   else if (githead.Contains("test")) {
     if (counter == 0) {
@@ -175,15 +175,15 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   p->SetScaleMax(1.7);
   p->SetRatioMin(0);
   p->SetRatioMax(2);
-  if (!githead.Contains("test")) {
-    p->SetSignalStyle("Fill");
-  }
+  //if (!githead.Contains("test")) {
+  //  p->SetSignalStyle("Fill");
+  //}
   p->doSetLogy = false;
   
   
   // Yields table settings and printing ========================================
   if (counter == 0) {
-    p->AddSystematic("stat");
+    p->AddSystematic("stat,JES");
     p->SetTableFormats("%1.4f");
     p->SetYieldsTableName("Yields_"+chan+"_"+tag);
     p->PrintYields("","","","txt");

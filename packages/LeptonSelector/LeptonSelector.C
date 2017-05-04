@@ -346,7 +346,7 @@ Bool_t LeptonSelector::isGoodLepton(Lepton lep){
     // Tight Muon ID, RelIso POG, tightIP2D, SIP3D > 4
     if(lep.isMuon){
       passId  = getMuonId(iTight);
-      passIso = getRelIso04POG(iTight);
+      passIso = getRelIso04POG(iLoose);
     }
     if(lep.isElec){
       passId = getElecCutBasedId(iTight) && lostHits <= 1;
@@ -447,22 +447,33 @@ Bool_t LeptonSelector::isGoodLepton(Lepton lep){
 //============================================== VETO LEPTONS
 Bool_t LeptonSelector::isVetoLepton(Lepton lep){
   Bool_t passId; Bool_t passIso;
-  
-  if(gPar == "LIDtop")  gSelection = ittHSelec;
-  if(gPar == "LIDstop") gSelection = ittHSelec;
-  
+    
   if(gSelection == iStopSelec){
     if(lep.isMuon){
       passId = true;
-      passIso = getRelIso03POG(iLooseWPforStop);
+      passIso = getRelIso03POG(iMedium);
     }
     else{
-      passId = getElecCutBasedId(iVeto);
-      passIso = getRelIso03POG(iLooseWPforStop);
+      passId = getElecCutBasedId(iLoose);
+      passIso = getRelIso03POG(iMedium);
+      if(TMath::Abs(etaSC) > 1.4442 && TMath::Abs(etaSC) < 1.566) return false;
     } 
+    if(lep.p.Pt() < 15 || TMath::Abs(lep.p.Eta()) > 2.4) return false;
     return passId && passIso && getGoodVertex(iTight) && getSIPcut(4);
   }
   else if(gSelection == iTopSelec || gSelection == iTWSelec){
+    if(lep.isMuon){
+      passId  = getMuonId(iMedium);
+      passIso = getRelIso04POG(iLoose);
+    }
+    if(lep.isElec){
+      passId = getElecCutBasedId(iMedium) && lostHits <= 1;
+      passIso = getRelIso03POG(iMedium);
+      if(TMath::Abs(etaSC) > 1.4442 && TMath::Abs(etaSC) < 1.566) return false;
+    }
+    if(lep.p.Pt() < 15 || TMath::Abs(lep.p.Eta()) > 2.4) return false;
+    if(passId && passIso && ( (lep.isElec && getGoodVertex(iMedium)) || (lep.isMuon && getGoodVertex(iMedium) ))) return true;
+    else return false;
     return true;
   }
   else if(gSelection == iWWSelec){
@@ -489,8 +500,7 @@ Bool_t LeptonSelector::isVetoLepton(Lepton lep){
     return true;
   }
   else if(gSelection == ittHSelec || gSelection == iWZSelec){
-    if(gPar == "LIDtop")  gSelection = iTopSelec;
-    if(gPar == "LIDstop") gSelection = iStopSelec;
+
   	// 	Fakeable muons for multilepton ttH Analysis:
   	// Tight muons without medium muon ID, tight charge and lepton MVA cuts.
   	//
@@ -552,9 +562,33 @@ Bool_t LeptonSelector::isVetoLepton(Lepton lep){
 //============================================== Loose leptons (or other)
 Bool_t LeptonSelector::isLooseLepton(Lepton lep){
   Bool_t passId; Bool_t passIso;
-  
-  if(gPar == "LIDtop")  gSelection = ittHSelec;
-  if(gPar == "LIDstop") gSelection = ittHSelec;
+   if(gSelection == iStopSelec){
+    if(lep.isMuon){
+      passId = true;
+      passIso = getRelIso03POG(iLooseWPforStop);
+    }
+    else{
+      passId  = getElecCutBasedId(iLoose);
+      passIso = getRelIso03POG(iLooseWPforStop);
+      if(TMath::Abs(etaSC) > 1.4442 && TMath::Abs(etaSC) < 1.566) return false;
+    } 
+    if(lep.p.Pt() < 5 || TMath::Abs(lep.p.Eta()) > 2.4) return false;
+    return passId && passIso && getGoodVertex(iTight) && getSIPcut(4);
+  }
+  else if(gSelection == iTopSelec || gSelection == iTWSelec){
+    if(lep.isMuon){
+      passId  = true;
+      passIso = getRelIso04POG(iLoose);
+    }
+    if(lep.isElec){
+      passId = getElecCutBasedId(iLoose) && lostHits <= 1;
+      passIso = getRelIso03POG(iLoose);
+      if(TMath::Abs(etaSC) > 1.4442 && TMath::Abs(etaSC) < 1.566) return false;
+    }
+    if(lep.p.Pt() < 5 || TMath::Abs(lep.p.Eta()) > 2.4) return false;
+    if(passId && passIso && ( (lep.isElec && getGoodVertex(iMedium)) || (lep.isMuon && getGoodVertex(iMedium) ))) return true;
+    else return false;
+  }
   
   if(gSelection == i4tSelec){
     if(lep.isMuon){
@@ -575,8 +609,6 @@ Bool_t LeptonSelector::isLooseLepton(Lepton lep){
     return true;
   }
   if(gSelection == ittHSelec || gSelection == iWZSelec){
-    if(gPar == "LIDtop")  gSelection = iTopSelec;
-    if(gPar == "LIDstop") gSelection = iStopSelec;
   	// 	Loose muons for multilepton ttH Analysis:
   	// Fakeable muons without jetCSV cut and with pt>5.
   	//

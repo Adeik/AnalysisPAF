@@ -151,9 +151,9 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   for (UInt_t isample = 0; isample < sizeof(TTZmc)/sizeof(*TTZmc); isample++) {
 	  p->AddSample(TTZmc[isample], "TTZ", itBkg, kSpring+2);
   }*/
-  for (UInt_t isample = 0; isample < sizeof(TTbarmc)/sizeof(*TTbarmc); isample++) {
-	  p->AddSample(TTbarmc[isample], "TTbar", itBkg, kSpring+10);
-  }/*
+  p->AddSample(TTbarmc[0], "TTbar_aMCatNLO", itBkg, kViolet-8);
+  p->AddSample(TTbarmc[1], "TTbar_Powheg", itBkg, kSpring+10);
+  /*
   for (UInt_t isample = 0; isample < sizeof(WJetsmc)/sizeof(*WJetsmc); isample++) {
 	  p->AddSample(WJetsmc[isample], "WJets", itBkg, kViolet+10);
   }

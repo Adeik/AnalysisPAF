@@ -741,22 +741,22 @@ void LeptonSelector::InsideLoop(){
   nGenLeptons  	= looseLeptons.size();
 
   TriggerSF = 1; TriggerSFerr = 0;
-  if(gSelection == iTopSelec){
-    if(nSelLeptons >= 2){
-      if     (selLeptons.at(0).isMuon && selLeptons.at(1).isMuon){
-        LepSF->GetTrigDoubleMuSF(    selLeptons.at(0).p.Pt(), selLeptons.at(1).p.Pt());
-        LepSF->GetTrigDoubleMuSF_err(selLeptons.at(0).p.Pt(), selLeptons.at(1).p.Pt());
-      }
-      else if(selLeptons.at(0).isElec && selLeptons.at(1).isElec){
-        LepSF->GetTrigDoubleElSF(    selLeptons.at(0).p.Pt(), selLeptons.at(1).p.Pt());
-        LepSF->GetTrigDoubleElSF_err(selLeptons.at(0).p.Pt(), selLeptons.at(1).p.Pt());
-      }
-      else{
-        LepSF->GetTrigElMuSF(        selLeptons.at(0).p.Pt(), selLeptons.at(1).p.Pt());
-        LepSF->GetTrigElMuSF_err(    selLeptons.at(0).p.Pt(), selLeptons.at(1).p.Pt());
-      }
-    }
-  }
+  // if(gSelection == iTopSelec){
+  //   if(nSelLeptons >= 2){
+  //     if     (selLeptons.at(0).isMuon && selLeptons.at(1).isMuon){
+  //       LepSF->GetTrigDoubleMuSF(    selLeptons.at(0).p.Pt(), selLeptons.at(1).p.Pt());
+  //       LepSF->GetTrigDoubleMuSF_err(selLeptons.at(0).p.Pt(), selLeptons.at(1).p.Pt());
+  //     }
+  //     else if(selLeptons.at(0).isElec && selLeptons.at(1).isElec){
+  //       LepSF->GetTrigDoubleElSF(    selLeptons.at(0).p.Pt(), selLeptons.at(1).p.Pt());
+  //       LepSF->GetTrigDoubleElSF_err(selLeptons.at(0).p.Pt(), selLeptons.at(1).p.Pt());
+  //     }
+  //     else{
+  //       LepSF->GetTrigElMuSF(        selLeptons.at(0).p.Pt(), selLeptons.at(1).p.Pt());
+  //       LepSF->GetTrigElMuSF_err(    selLeptons.at(0).p.Pt(), selLeptons.at(1).p.Pt());
+  //     }
+  //   }
+  // }
 
   // Set params for the next selectors
   SetParam("selLeptons",  selLeptons );

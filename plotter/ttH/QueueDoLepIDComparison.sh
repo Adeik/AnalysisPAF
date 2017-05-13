@@ -29,6 +29,9 @@ if [ "$1" == "an" ]; then
   
 elif [ "$1" == "pl" ]; then
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ttH PLOTTER EXECUTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
+  echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Remaking libraries..."
+  source RemakeLibraries.sh
+  
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Creating jobs..."
   source QueueDottHAnalysis.sh pl top
   source QueueDottHAnalysis.sh pl Stop

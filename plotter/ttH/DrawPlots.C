@@ -200,8 +200,8 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   
 
   // Print and plot ============================================================
-  if (counter != 0) p->DrawStack(tag, 1);
-  //if (counter != 0) p->DrawComp(tag, 1);
+  //if (counter != 0) p->DrawStack(tag, 1);
+  if (counter != 0) p->DrawComp(tag, 1);
   
   delete p;
 }

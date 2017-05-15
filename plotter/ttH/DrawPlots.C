@@ -44,6 +44,7 @@ void DrawPlots(TString chan = "ElMu", TString tag = "0"){
   DrawPlot("TPtLeading",       cut, chan, 10, 0, 200,  "Pt (GeV)", "PtLeading", tag);
   DrawPlot("TPtSubLeading",    cut, chan, 10, 0, 200,  "Pt (GeV)", "PtSubLeading", tag);
   DrawPlot("TPtSubSubLeading", cut, chan, 10, 0, 200,  "Pt (GeV)", "PtSubSubLeading", tag);
+  DrawPlot("TPtVector",        cut, chan, 10, 0, 200,  "Pt (GeV)", "PtVector", tag);
   DrawPlot("TMET",             cut, chan, 10, 0, 400,  "MET (GeV)", "MET", tag);
   DrawPlot("TMHT",             cut, chan, 10, 0, 1000, "MHT (GeV)", "MHT", tag);
   DrawPlot("THT",              cut, chan, 10, 0, 1000, "HT (GeV)", "HT", tag);
@@ -181,19 +182,20 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   //}
   p->doSetLogy = false;
   
+  // Errors ====================================================================
+  p->AddSystematic("stat,JES");
   
   // Yields table settings and printing ========================================
   if (counter == 0) {
-    p->AddSystematic("stat,JES");
     p->SetTableFormats("%1.4f");
     p->SetYieldsTableName("Yields_"+chan+"_"+tag);
     p->PrintYields("","","","txt");
-    counter = 1;
   }
   
-
-  // Print and plot ============================================================
+  // Plotting ==================================================================
   if (counter != 0) p->DrawStack(tag, 1);
+	
   
+  if (counter == 0) counter = 1;
   delete p;
 }

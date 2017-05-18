@@ -19,6 +19,7 @@ void TauSelector::Initialise() {
   // Initialise TauSelector
   gIsData       = GetParam<Bool_t>("IsData");
   gSelection    = GetParam<Int_t>("iSelection");
+  gPar          = GetParam<TString>("par");
   localPath     = GetParam<TString>("WorkingDir");
   
   // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -72,8 +73,12 @@ Bool_t TauSelector::isGoodTau(Lepton tau){
           break;
         }
     }
-    
-    if (!passDecayMode || !passPt || !passEta || !passID || !passOverlap || !passAntiE || !passAntiMu) return false;
+    if (gPar == "TIDtau") {
+      if (!passDecayMode || !passPt || !passEta || !passID || !passOverlap) return false;
+    }
+    else {
+      if (!passDecayMode || !passPt || !passEta || !passID || !passOverlap || !passAntiE || !passAntiMu) return false;
+    }
     return true;
   } 
   else if(gSelection == i4tSelec)

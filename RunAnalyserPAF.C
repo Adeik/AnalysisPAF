@@ -24,6 +24,8 @@ Float_t xsec;
 Bool_t verbose = true;
 const Int_t nLHEWeight = 248;
 
+TString par;                                                                        // WOLOLO**********
+
 enum             sel         {iStopSelec, iTopSelec, iTWSelec, iWWSelec, ittDMSelec, ittHSelec, iWZSelec, i4tSelec, nSel};
 const TString tagSel[nSel] = {"Stop",         "Top",     "TW",     "WW",     "ttDM",     "ttH",   "WZ",    "tttt" };
 
@@ -40,7 +42,13 @@ void RunAnalyserPAF(TString sampleName, TString Selection, Int_t nSlots, Long64_
 	nTrueEntries = 0;
 	xsec = 0;
   //Float_t arr[nLHEWeight]; Float_t *CountLHE;
-
+  
+  if (Selection.BeginsWith("ttH_") || Selection.BeginsWith("TTH_")) {              // WOLOLO**********
+    par = Selection.ReplaceAll("ttH_", "");
+    par = Selection.ReplaceAll("TTH_", "");
+    Selection = "ttH";
+  }
+  
 
   TString WorkingDir = gSystem->WorkingDirectory();
 
@@ -179,6 +187,10 @@ void RunAnalyserPAF(TString sampleName, TString Selection, Int_t nSlots, Long64_
         if(username=="vischia") outPrefix="/pool/cienciasrw/userstorage/pietro/tttt/2l_skim/";
         // Insert here your conditional. Si no, por defecto es ./
         TString outputDir = outPrefix + tagSel[sel] + "_temp";
+        
+      	if(par == "TIDtau") outputDir += "/tauidcomparison/tau";
+      	if(par == "TIDtth") outputDir += "/tauidcomparison/tth";
+        
 	if(sampleName.BeginsWith("T2tt")) outputDir += "/T2tt/";
 	gSystem->mkdir(outputDir, kTRUE);
 	if(sampleName.Contains("_ext2")) sampleName.ReplaceAll("_ext2",""); 
@@ -263,6 +275,7 @@ void RunAnalyserPAF(TString sampleName, TString Selection, Int_t nSlots, Long64_
 	myProject->SetInputParam("lspMass"      , lspMass          );
 	myProject->SetInputParam("doSyst"       , G_DoSystematics  ); 
 
+  myProject->SetInputParam("par"          , par              );
 
 	// Name of analysis class
 	//----------------------------------------------------------------------------
@@ -445,6 +458,3 @@ vector<TString> GetAllFiles(TString path, TString  filename) {
   if (theFiles.size() == 0) cerr << "ERROR: in GetAllFiles. Could not find data!" << endl;
   return theFiles;
 }
-
-
-

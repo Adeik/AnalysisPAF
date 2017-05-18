@@ -28,6 +28,7 @@ class TauSelector : public PAFChainItemSelector{
   
   LeptonSF* TauSF;
   Bool_t    gIsData;
+  TString   gPar;
   Int_t     gSelection;
   TString   localPath;
   

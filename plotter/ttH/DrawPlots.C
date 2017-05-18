@@ -193,11 +193,11 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   p->AddSystematic("stat");
   
   // Yields table settings and printing ========================================
-  if (counter == 0) {
+  /*if (counter == 0) {
     p->SetTableFormats("%1.4f");
     p->SetYieldsTableName("Yields_"+chan+"_"+tag);
     p->PrintYields("","","","txt");
-  }
+  }*/
   
   // Print and plot ============================================================
   //if (counter != 0) p->DrawStack(tag, 1);

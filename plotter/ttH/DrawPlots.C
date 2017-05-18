@@ -208,6 +208,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
         p->AddSample(Signalmc[0], "ttH", itBkg, kRed, 0, "0", "AllInstances");
       }*/    
     }
+  }
   else {
     p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itBkg, kViolet-8);
     p->AddSample(TTbarmc[0], "TTbar_Powheg", itBkg, kSpring+10);

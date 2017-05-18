@@ -218,10 +218,10 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   p->SetScaleMax(1.7);
   p->SetRatioMin(0);
   p->SetRatioMax(2);
-  p->doYieldsInLeg = false;
+  /*p->doYieldsInLeg = false;
   if (counter != 0) {
     p->SetSignalStyle("H");
-  }
+  }*/
   p->doSetLogy = false;
   
   // Errors ====================================================================

@@ -8,7 +8,6 @@ R__LOAD_LIBRARY(Plot.C+)
 #include <iostream>
 #include <fstream>
 
-
 /*const TString Signalmc[]      = {"TTHNonbb"};                   // ttH
 const TString TTWmc[] 	      = {"TTWToLNu1", "TTWToQQ"};			  // TTW
 const TString TTZmc[] 	      = {"TTZToLLNuNu1", "TTZToQQ"};	    // TTZ
@@ -17,12 +16,10 @@ const TString TTbarmc[] 	    = {"TTGJets", "TTbar_Powheg"}; // TTbar at LO (comm
 //const TString TTbarmc[]             = {"TTbar_Powheg"}; // TTbar at LO (comment/uncomment as desired)
 //const TString TTbarmc[]             = {"TTJets_aMCatNLO"}; // TTbar at NLO (comment/uncomment as desired)
 const TString TTbarmc[]             = {"TTbar_Powheg", "TTJets_aMCatNLO"}; // Both TTbar (comment/uncomment as desired)
-/*const TString WJetsmc[]       = {"WJetsToLNu_MLM"};             // WJets at LO  (comment/uncomment as desired)
-//const TString WJetsmc[]       = {"WJetsToLNu_aMCatNLO"};        // WJets at NLO (comment/uncomment as desired)
+/*const TString WJetsmc[]       = {"WJetsToLNu_MLM"};             // WJets at LO
 const TString STmc[]    	    = {"TW", "TbarW", "T_tch", "Tbar_tch", "TToLeptons_sch_amcatnlo","TGJets"};// ST
-const TString DYmc[]          = {"DYJetsToLL_M50_MLM", "DYJetsToLL_M5to50_MLM"};                         // DY at LO   (comment/uncomment as desired)
-//const TString DYmc[2]          = {"DYJetsToLL_M50_aMCatNLO", "DYJetsToLL_M10to50_aMCatNLO"};              // DY at NLO (comment/uncomment as desired)
-const TString DiTriCuatrimc[] = {"WGToLNuG", "ZGTo2LG", "WpWpJJ", "WWW", "WWZ", "WZZ", "ZZZ", "WW", "tZq_ll", "TTTT", "WZTo3LNu_amcatnlo", "WWTo2L2Nu", "ZZ"}; // Di&Tri&Cuatriboson
+const TString DYmc[]          = {"DYJetsToLL_M50_MLM", "DYJetsToLL_M5to50_MLM"};                         // DY
+const TString DiTriCuatrimc[] = {"WGToLNuG", "ZGTo2LG", "WpWpJJ", "WWW", "WWZ", "WZZ", "ZZZ", "WW", "tZq_ll", "TTTT", "WZTo3LNu", "WWTo2L2Nu", "ZZ"}; // Di&Tri&Cuatriboson
 const TString Data[]          = {"MuonEG", "SingleMuon", "SingleElec", "DoubleEG", "DoubleMuon"};        // Data samples*/
 UInt_t counter = 0;
 
@@ -37,7 +34,7 @@ void DrawPlots(TString chan = "ElMu", TString tag = "0"){
   else if (chan == "3l")  cut = "(TCat == 3)";
   else if (chan == "4l")  cut = "(TCat == 4)";
   
-  DrawPlot("TnTightLepton",    cut, chan, 6, 0, 6,     "nTightLep (#)", "nTightLepton", tag); // This is only for getting yields.
+  DrawPlot("TnTightLepton",    cut, chan, 6, 0, 6,     "nTightLep (#)", "nTightLepton", tag); // This one is only for getting yields.
   DrawPlot("TnTightLepton",    cut, chan, 6, 0, 6,     "nTightLep (#)", "nTightLepton", tag);
   DrawPlot("TnFakeableLepton", cut, chan, 5, 0, 5,     "nFakeLep (#)", "nFakeLepton", tag);
   DrawPlot("TnLooseLepton",    cut, chan, 5, 0, 5,     "nLooseLep (#)", "nLooseLepton", tag);

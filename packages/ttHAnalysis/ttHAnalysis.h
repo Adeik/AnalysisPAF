@@ -170,5 +170,7 @@ class ttHAnalysis : public PAFChainItemSelector {
     Float_t PUSF_Up;
     Float_t PUSF_Down;
     
+    TString gPar;
+    
     ClassDef(ttHAnalysis,0);  // ROOT definition as class
 };

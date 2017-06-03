@@ -226,9 +226,11 @@ Bool_t ttHAnalysis::PassesPreCuts(UInt_t njets, UInt_t nloosebtag, UInt_t nmediu
 Bool_t ttHAnalysis::Is2lSSEvent(UInt_t njets, Float_t metld) {
   if (nTightLepton != 2)                          return false;
   if (!isSS) 					                            return false;
-  if (TightLepton.at(0).Pt() < 25)                return false;
-  if (TightLepton.at(1).Pt() < 15)                return false;
-  if (!PassesTightChargeCuts())                   return false;
+  if ((gPar != "LIDtop") && (gPar != "LIDstop")) {
+    if (TightLepton.at(0).Pt() < 25)                return false;
+    if (TightLepton.at(1).Pt() < 15)                return false;
+    if (!PassesTightChargeCuts())                   return false;
+  }
   if (njets < 4)                                  return false;
 
   if (gChannel == iElec) {
@@ -242,9 +244,11 @@ Bool_t ttHAnalysis::Is2lSSEvent(UInt_t njets, Float_t metld) {
 
 Bool_t ttHAnalysis::Is3lEvent(UInt_t njets, Float_t metld) {
   if (nTightLepton != 3)                          return false;
-  if (TightLepton.at(0).Pt() < 25)                return false;
-  if (TightLepton.at(1).Pt() < 15)                return false;
-  if (TightLepton.at(2).Pt() < 15)                return false;
+  if ((gPar != "LIDtop") && (gPar != "LIDstop")) {
+    if (TightLepton.at(0).Pt() < 25)                return false;
+    if (TightLepton.at(1).Pt() < 15)                return false;
+    if (TightLepton.at(2).Pt() < 15)                return false;
+  }
   if (abs(ClosestMlltoZ(LooseLepton) - Zm) < 10)  return false;
   if (abs(getCS(TightLepton)) != 1)               return false;
   if (has2OSSFwMlmm(LooseLepton, 140))            return false;
@@ -264,9 +268,11 @@ Bool_t ttHAnalysis::Is3lEvent(UInt_t njets, Float_t metld) {
 
 Bool_t ttHAnalysis::Is4lEvent() {
   if (nTightLepton <= 3)                          return false;
-  if (TightLepton.at(0).Pt() < 25)                return false;
-  if (TightLepton.at(1).Pt() < 15)                return false;
-  if (TightLepton.at(2).Pt() < 15)                return false;
+  if ((gPar != "LIDtop") && (gPar != "LIDstop")) {
+    if (TightLepton.at(0).Pt() < 25)                return false;
+    if (TightLepton.at(1).Pt() < 15)                return false;
+    if (TightLepton.at(2).Pt() < 15)                return false;
+  }
   if (abs(ClosestMlltoZ(LooseLepton) - Zm) < 10)  return false;  
   if (has2OSSFwMlmm(LooseLepton, 140))            return false;
   

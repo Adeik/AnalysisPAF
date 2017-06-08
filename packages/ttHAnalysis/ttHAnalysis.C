@@ -172,7 +172,7 @@ void ttHAnalysis::SetSystBranches() {
   fTree->Branch("TnMediumBTagsJESDown", &TnMediumBTagsJESDown,"TnMediumBTagsJESDown/F");
   fTree->Branch("TCatJESUp",            &TCatJESUp,           "TCatJESUp/I");
   fTree->Branch("TCatJESDown",          &TCatJESDown,         "TCatJESDown/I");
-  fTree->Branch("TLHEWeight",           &TLHEWeight,          "TLHEWeight[254]/F");
+  fTree->Branch("TLHEWeight",           &TLHEWeight,           "TLHEWeight[254]/F");
 }
 
 
@@ -390,8 +390,8 @@ void ttHAnalysis::GetParameters() {
   gLocalPath  = GetParam<TString>("WorkingDir");
   
   gIsLHE       = false;
-  if (gSampleName.Contains("TTWToLNu1") || gSampleName.Contains("TTWToQQ") ||
-      gSampleName.Contains("TTZToLLNuNu1") || gSampleName.Contains("TTZToQQ")) gIsLHE = true;
+  if (gSampleName.Contains("TTWToLNu") || gSampleName.Contains("TTWToQQ") ||
+      gSampleName.Contains("TTZToLLNuNu") || gSampleName.Contains("TTZToQQ")) gIsLHE = true;
 }
 
 

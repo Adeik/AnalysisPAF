@@ -473,35 +473,27 @@ void ttHAnalysis::CalculateWeight() {
     }
     
     Float_t Trig = 1; Float_t Trig_Up = 1; Float_t Trig_Down = 1;
-    
-    if ((gPar == "LIDtop") || (gPar == "LIDstop")) {
-      Trig      = GetParam<Float_t>("TriggerSF");
-      Trig_Up   = GetParam<Float_t>("TriggerSF") + GetParam<Float_t>("TriggerSFerr");
-      Trig_Down = GetParam<Float_t>("TriggerSF") - GetParam<Float_t>("TriggerSFerr");
+    if (nTightLepton <= 2) {
+      if      (gChannel == iElec) {
+        Trig      = 1.01;
+        Trig_Up   = 1.03;
+        Trig_Down = 0.99;
+      }
+      else if (gChannel == iMuon) {
+        Trig      = 1.00;
+        Trig_Up   = 1.01;
+        Trig_Down = 0.99;
+      }
+      else if (gChannel == iElMu) {
+        Trig      = 1.01;
+        Trig_Up   = 1.02;
+        Trig_Down = 1.00;
+      }
     }
     else {
-      if (nTightLepton <= 2) {
-        if      (gChannel == iElec) {
-          Trig      = 1.01;
-          Trig_Up   = 1.03;
-          Trig_Down = 0.99;
-        }
-        else if (gChannel == iMuon) {
-          Trig      = 1.00;
-          Trig_Up   = 1.01;
-          Trig_Down = 0.99;
-        }
-        else if (gChannel == iElMu) {
-          Trig      = 1.01;
-          Trig_Up   = 1.02;
-          Trig_Down = 1.00;
-        }
-      }
-      else {
-        Trig      = 1.00;
-        Trig_Up   = 1.03;
-        Trig_Down = 0.97;      
-      }
+      Trig      = 1.00;
+      Trig_Up   = 1.03;
+      Trig_Down = 0.97;      
     }
     
     EventWeight           *= gWeight*Trig*PUSF*ElecSF*MuonSF;

@@ -170,14 +170,14 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
       p->AddSample(TTbarmc[0], "TTbar_Powheg", itSignal, kSpring+10);
       
       
-      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, ScaleUp);
-      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, ScapeUp);
-      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, ScaleDown);
-      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, ScapeDown);
-      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, pdfUp);
-      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, pdfUp);
-      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, pdfDown);
-      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, pdfDown);
+      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "ScaleUp");
+      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "ScaleUp");
+      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "ScaleDown");
+      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "ScaleDown");
+      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "pdfUp");
+      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "pdfUp");
+      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "pdfDown");
+      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "pdfDown");
       /*
       for (UInt_t isample = 0; isample < sizeof(TTWmc)/sizeof(*TTWmc); isample++) {
         p->AddSample(TTWmc[isample], "TTW", itBkg, kGreen-5);
@@ -231,14 +231,14 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
       p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSignal, kViolet-8, "0", "AllInstances");
       p->AddSample(TTbarmc[0], "TTbar_Powheg", itSignal, kSpring+10, "0", "AllInstances");
       
-      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, ScaleUp, "AllInstances");
-      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, ScapeUp, "AllInstances");
-      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, ScaleDown, "AllInstances");
-      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, ScapeDown, "AllInstances");
-      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, pdfUp, "AllInstances");
-      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, pdfUp, "AllInstances");
-      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, pdfDown, "AllInstances");
-      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, pdfDown, "AllInstances");      
+      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "ScaleUp", "AllInstances");
+      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "ScaleUp", "AllInstances");
+      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "ScaleDown", "AllInstances");
+      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "ScaleDown", "AllInstances");
+      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "pdfUp", "AllInstances");
+      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "pdfUp", "AllInstances");
+      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "pdfDown", "AllInstances");
+      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "pdfDown", "AllInstances");      
       
       /*
       for (UInt_t isample = 0; isample < sizeof(TTWmc)/sizeof(*TTWmc); isample++) {
@@ -312,14 +312,14 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itBkg, kViolet-8);
     p->AddSample(TTbarmc[0], "TTbar_Powheg", itBkg, kSpring+10);
     
-    p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, ScaleUp);
-    p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, ScapeUp);
-    p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, ScaleDown);
-    p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, ScapeDown);
-    p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, pdfUp);
-    p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, pdfUp);
-    p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, pdfDown);
-    p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, pdfDown);
+    p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "ScaleUp");
+    p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "ScaleUp");
+    p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "ScaleDown");
+    p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "ScaleDown");
+    p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "pdfUp");
+    p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "pdfUp");
+    p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "pdfDown");
+    p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "pdfDown");
     /*
     for (UInt_t isample = 0; isample < sizeof(TTWmc)/sizeof(*TTWmc); isample++) {
       p->AddSample(TTWmc[isample], "TTW", itSys, 1, "ScaleUp", "AllInstances");

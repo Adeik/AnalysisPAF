@@ -92,8 +92,7 @@ void ttHAnalysis::GetTreeVariables() {
   Tevt      = 0;
   Trun      = 0;
   genWeight = 1;
-  for (UInt_t i = 0; i < 254; i++) TLHEWeight[i] = 0;
-  
+  for (UInt_t i = 0; i < 254; i++) TLHEWeight[i] = 0;  
   
   if (!gIsData){
     genWeight   = Get<Float_t>("genWeight");
@@ -177,12 +176,6 @@ void ttHAnalysis::SetSystBranches() {
 
 
 void ttHAnalysis::SetMiniTreeVariables() {
-  if (PassesPreCuts(nJets, nLooseBTags, nMediumBTags)) {
-    if      (Is2lSSEvent(nJets, METLD))                 TCat        = 2;
-    else if (Is3lEvent  (nJets, METLD))                 TCat        = 3;
-    else if (Is4lEvent())                               TCat        = 4;
-  }
-  
   if (PassesPreCuts(TnJetsJESUp, TnLooseBTagsJESUp, TnMediumBTagsJESUp)) {
     if      (Is2lSSEvent(TnJetsJESUp, TMETLDJESUp))     TCatJESUp   = 2;
     else if (Is3lEvent  (TnJetsJESUp, TMETLDJESUp))     TCatJESUp   = 3;
@@ -193,6 +186,12 @@ void ttHAnalysis::SetMiniTreeVariables() {
     if      (Is2lSSEvent(TnJetsJESDown, TMETLDJESDown)) TCatJESDown = 2;
     else if (Is3lEvent  (TnJetsJESDown, TMETLDJESDown)) TCatJESDown = 3;
     else if (Is4lEvent())                               TCatJESDown = 4;
+  }
+  
+  if (PassesPreCuts(nJets, nLooseBTags, nMediumBTags)) {
+    if      (Is2lSSEvent(nJets, METLD))                 TCat        = 2;
+    else if (Is3lEvent  (nJets, METLD))                 TCat        = 3;
+    else if (Is4lEvent())                               TCat        = 4;
   }
   
   if (nTightLepton >= 1) TPtLeading           = TightLepton.at(0).Pt();
@@ -390,8 +389,9 @@ void ttHAnalysis::GetParameters() {
   gLocalPath  = GetParam<TString>("WorkingDir");
   
   gIsLHE       = false;
-  if (gSampleName.Contains("TTWToLNu") || gSampleName.Contains("TTWToQQ") ||
-      gSampleName.Contains("TTZToLLNuNu") || gSampleName.Contains("TTZToQQ")) gIsLHE = true;
+  if (gSampleName.Contains("TTWToLNu")    || gSampleName.Contains("TTWToQQ") ||
+      gSampleName.Contains("TTZToLLNuNu") || gSampleName.Contains("TTZToQQ") ||
+      gSampleName.Contains("TTHNonbb")) gIsLHE = true;
   if (gIsLHE) cout << "+ The sample is tagged for pdf and scale systs" << endl;
 }
 

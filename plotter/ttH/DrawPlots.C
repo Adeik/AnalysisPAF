@@ -43,7 +43,7 @@ void DrawPlots(TString chan = "ElMu", TString tag = "0"){
   else if (chan == "3l")  cut = "(TCat == 3)";
   else if (chan == "4l")  cut = "(TCat == 4)";
   
-  DrawPlot("TCat",                cut, chan, 3, 2, 5,     "Category", "Categories", tag); // This one is only for getting yields.
+  DrawPlot("TCat",                cut, chan, 3, 2, 5,     "Category", "Categories", tag); // This one is only for getting yields and for the Datacard.
   DrawPlot("TnTightLepton",       cut, chan, 6, 0, 6,     "nTightLep (#)", "nTightLepton", tag);
   DrawPlot("TnFakeableLepton",    cut, chan, 5, 0, 5,     "nFakeLep (#)", "nFakeLepton", tag);
   DrawPlot("TnLooseLepton",       cut, chan, 5, 0, 5,     "nLooseLep (#)", "nLooseLepton", tag);
@@ -61,11 +61,18 @@ void DrawPlots(TString chan = "ElMu", TString tag = "0"){
   DrawPlot("THT",                 cut, chan, 10, 0, 1000, "HT (GeV)", "HT", tag);
   DrawPlot("TMETLD",              cut, chan, 10, 0, 2,    "METLD (GeV)", "METLD", tag);
   DrawPlot("TCS",                 cut, chan, 7, -3.5, 3.5,"Sum of charges", "CS", tag);
-  DrawPlot("TMass",               cut, chan, 10, 0, 400,  "Invariant mass (GeV)", "Mass", tag);
+  DrawPlot("TMass",               cut, chan, 10, 0, 400,  "M_ll (GeV)", "Mass", tag);
 }
 
-void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0, Float_t binN, TString Xtitle, TString name, TString tag = "0"){
-  Plot* p     = new Plot(var, cut, chan, nbins, bin0, binN, "Title", Xtitle);
+void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0, Float_t binN, TString Xtitle, TString name, TString tag = "0") {
+  Plot* p = NULL;
+  if (chan == "2lSS") {
+    p     = new Plot(var, cut, "All", nbins, bin0, binN, "Title", Xtitle);
+  }
+  else {
+    p     = new Plot(var, cut, chan, nbins, bin0, binN, "Title", Xtitle);
+  }
+  
   p->verbose  = true;
   
   
@@ -118,6 +125,14 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     else if (tag == "tth95")  path += "tth95/";
     else if (tag == "tth97")  path += "tth97/";
   }
+  else if (githead.Contains("test2")) {
+    if (counter == 0) {
+      cout << endl;
+      cout << "+ Branch TEST2 chosen" << endl;
+      cout << endl;
+    }
+    outputpath  += "test2/";
+  }
   else if (githead.Contains("test")) {
     if (counter == 0) {
       cout << endl;
@@ -169,7 +184,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
       p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSignal, kViolet-8);
       p->AddSample(TTbarmc[0], "TTbar_Powheg", itSignal, kSpring+10);
       
-      
+      /*
       p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "ScaleUp");
       p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "ScaleUp");
       p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "ScaleDown");
@@ -178,9 +193,10 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
       p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "pdfUp");
       p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "pdfDown");
       p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "pdfDown");
-      /*
+      
       for (UInt_t isample = 0; isample < sizeof(TTWmc)/sizeof(*TTWmc); isample++) {
         p->AddSample(TTWmc[isample], "TTW", itBkg, kGreen-5);
+
       }
       for (UInt_t isample = 0; isample < sizeof(TTZmc)/sizeof(*TTZmc); isample++) {
     	  p->AddSample(TTZmc[isample], "TTZ", itBkg, kSpring+2);
@@ -230,7 +246,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     else {
       p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSignal, kViolet-8, "0", "AllInstances");
       p->AddSample(TTbarmc[0], "TTbar_Powheg", itSignal, kSpring+10, "0", "AllInstances");
-      
+      /*
       p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "ScaleUp", "AllInstances");
       p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "ScaleUp", "AllInstances");
       p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "ScaleDown", "AllInstances");
@@ -240,7 +256,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
       p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "pdfDown", "AllInstances");
       p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "pdfDown", "AllInstances");      
       
-      /*
+      
       for (UInt_t isample = 0; isample < sizeof(TTWmc)/sizeof(*TTWmc); isample++) {
         p->AddSample(TTWmc[isample], "TTW", itBkg, kGreen-5, "0", "AllInstances");
       }
@@ -301,7 +317,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "NormttHUp");
     p->ScaleSys("ttH_NormttHUp", 1.058);
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "NormttHDown");
-    p->ScaleSys("ttH_NormttHDown", 1.092);
+    p->ScaleSys("ttH_NormttHDown", 1.092);/*
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "ScaleUp");
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "ScaleDown");
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "pdfUp");
@@ -311,7 +327,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   else {
     p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itBkg, kViolet-8);
     p->AddSample(TTbarmc[0], "TTbar_Powheg", itBkg, kSpring+10);
-    
+    /*
     p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "ScaleUp");
     p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "ScaleUp");
     p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "ScaleDown");
@@ -320,7 +336,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "pdfUp");
     p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSys, 1, "pdfDown");
     p->AddSample(TTbarmc[0], "TTbar_Powheg", itSys, 1, "pdfDown");
-    /*
+    
     for (UInt_t isample = 0; isample < sizeof(TTWmc)/sizeof(*TTWmc); isample++) {
       p->AddSample(TTWmc[isample], "TTW", itSys, 1, "ScaleUp", "AllInstances");
     }
@@ -377,7 +393,6 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "ScaleDown", "AllInstances");
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "pdfUp", "AllInstances");
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "pdfDown", "AllInstances");
-    
   */
   }
   
@@ -409,7 +424,8 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     x->SetChannelTag("chan");
     
     x->SetEfficiencySyst("Trig, PU, MuonEff, ElecEff, JES");
-    x->SetAcceptanceSyst("stat, Scale, pdf");
+//    x->SetAcceptanceSyst("stat, Scale, pdf");
+    x->SetAcceptanceSyst("stat");
     
     x->SetOutputFolder(outputpath);
     x->SetXsecTableName("Xsec_"+chan+"_"+tag);
@@ -421,7 +437,8 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     // Datacard
     const TString Bkgs      = " TTW,  TTZ,    WZ,   Convs,  Fakes,  Rares";
     const TString BkgsNorm  = "1.12, 1.10,   1.3,     1.3,    1.3,    1.3";
-    const TString Sys       = "Trig, PU, MuonEff, ElecEff, JES, Scale, pdf";
+    //const TString Sys       = "Trig, PU, MuonEff, ElecEff, JES, Scale, pdf";
+    const TString Sys       = "Trig, PU, MuonEff, ElecEff, JES";
     Datacard *d = new Datacard("ttH",Bkgs,Sys,chan);
     
     d->SetPathToFile(outputpath);

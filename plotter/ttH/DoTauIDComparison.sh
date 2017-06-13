@@ -13,10 +13,10 @@ if [ "$1" == "an" ]; then
 elif [ "$1" == "pl" ]; then
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ttH PLOTTER EXECUTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
   echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Starting to plot"
-  cd ..
+  
   source DottHAnalysis.sh pl tau
   source DottHAnalysis.sh pl tth
-  cd ttH
+  
 else
     echo "ERROR - No valid arguments given"
     echo "Please, execute this script with a valid argument"

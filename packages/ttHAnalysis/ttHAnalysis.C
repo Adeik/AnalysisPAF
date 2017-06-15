@@ -59,15 +59,17 @@ void ttHAnalysis::InsideLoop() {
   if (!passTrigger)                                                             return;
   
   // Filter events that never pass the precuts
-  if (!PassesPreCuts(nJets, nLooseBTags, nMediumBTags) && 
-      !PassesPreCuts(TnJetsJESUp, TnLooseBTagsJESUp, TnMediumBTagsJESUp) && 
-      !PassesPreCuts(TnJetsJESDown, TnLooseBTagsJESDown, TnMediumBTagsJESDown)) return;
+  //if (!PassesPreCuts(nJets, nLooseBTags, nMediumBTags) && 
+  //    !PassesPreCuts(TnJetsJESUp, TnLooseBTagsJESUp, TnMediumBTagsJESUp) && 
+  //    !PassesPreCuts(TnJetsJESDown, TnLooseBTagsJESDown, TnMediumBTagsJESDown)) return; 
+  
+  if (!PassesPreCuts(nJets, nLooseBTags, nMediumBTags))                         return;
   
   // Get minitree variables, specifically the event selection
   SetMiniTreeVariables();
   
   // Filter events that are never selected.
-  if (TCat == 0 && TCatJESUp == 0 && TCatJESDown == 0)                          return;
+  //if (TCat == 0 && TCatJESUp == 0 && TCatJESDown == 0)                          return;
   
   // Set SF for 3l and 4l categories, and get the correct weight
   Reset3l4lLeptonSF();
@@ -233,7 +235,7 @@ void ttHAnalysis::SetSystBranches() {
     fTree->Branch("THLT_Ele25_eta2p1_WPTight_Gsf_v",          &THLT_Ele25_eta2p1_WPTight_Gsf_v, "THLT_Ele25_eta2p1_WPTight_Gsf_v/B");
     fTree->Branch("THLT_Ele27_eta2p1_WPLoose_Gsf_v",          &THLT_Ele27_eta2p1_WPLoose_Gsf_v, "THLT_Ele27_eta2p1_WPLoose_Gsf_v/B");
   }
-  fTree->Branch("Tcuts",          &Tcuts);
+  fTree->Branch("Tcuts",          Tcuts,          "Tcuts[14]/i");
   fTree->Branch("Tdummy",         &Tdummy,        "Tdummy/i");
 }
 
@@ -250,8 +252,10 @@ void ttHAnalysis::SetMiniTreeVariables() {
     else if (Is3lEvent  (TnJetsJESDown, TMETLDJESDown)) TCatJESDown = 3;
     else if (Is4lEvent())                               TCatJESDown = 4;
   }
-  Tcuts.clear();
-  Tcuts.push_back(0);
+  
+  
+  for (UInt_t i = 0; i < 14; i++) Tcuts[i] = 0;
+  Tcuts[0]=0;
   if (PassesPreCuts(nJets, nLooseBTags, nMediumBTags)) {
     if      (Is2lSSEvent(nJets, METLD))                 TCat        = 2;
     else if (Is3lEvent  (nJets, METLD))                 TCat        = 3;
@@ -284,15 +288,15 @@ void ttHAnalysis::SetMiniTreeVariables() {
 ////////////////////////////////////////////////////////////////////////////////
 Bool_t ttHAnalysis::PassesPreCuts(UInt_t njets, UInt_t nloosebtag, UInt_t nmediumbtag) {
   if (nTightLepton < 2)                           return false;
-  Tcuts.push_back(1);
+  Tcuts[1]=1;
   if (nTaus != 0)                                 return false;
-  Tcuts.push_back(2);
+  Tcuts[2]=2;
   if (!PassesLowMassLimit(LooseLepton,12))        return false;
-  Tcuts.push_back(3);
+  Tcuts[3]=3;
   if (njets < 2)                                  return false;
-  Tcuts.push_back(4);
+  Tcuts[4]=4;
   if ((nloosebtag < 2) && (nmediumbtag < 1))      return false;
-  Tcuts.push_back(5);
+  Tcuts[5]=5;
   
   return true;
 }
@@ -317,19 +321,19 @@ Bool_t ttHAnalysis::Is2lSSEvent(UInt_t njets, Float_t metld) {
 
 Bool_t ttHAnalysis::Is3lEvent(UInt_t njets, Float_t metld) {
   if (nTightLepton != 3)                          return false;
-  Tcuts.push_back(6);
+  Tcuts[6]=6;
   if (TightLepton.at(0).Pt() < 25)                return false;
-  Tcuts.push_back(7);
+  Tcuts[7]=7;
   if (TightLepton.at(1).Pt() < 15)                return false;
-  Tcuts.push_back(8);
+  Tcuts[8]=8;
   if (TightLepton.at(2).Pt() < 15)                return false;
-  Tcuts.push_back(9);
+  Tcuts[9]=9;
   if (abs(ClosestMlltoZ(LooseLepton) - Zm) < 10)  return false;
-  Tcuts.push_back(10);
+  Tcuts[10]=10;
   if (abs(getCS(TightLepton)) != 1)               return false;
-  Tcuts.push_back(11);
+  Tcuts[11]=11;
   if (has2OSSFwMlmm(LooseLepton, 140))            return false;
-  Tcuts.push_back(12);
+  Tcuts[12]=12;
   
   if (njets < 4) {
     if (!hasOSSF(LooseLepton)) {
@@ -339,7 +343,7 @@ Bool_t ttHAnalysis::Is3lEvent(UInt_t njets, Float_t metld) {
       if (metld < 0.3)                            return false;
     }
   }
-  Tcuts.push_back(13);
+  Tcuts[13]=13;
   
   return true;
 }
@@ -449,7 +453,8 @@ void ttHAnalysis::ResetVariables() {
   TnMediumBTagsJESDown= 0;
   TCatJESUp           = 0;
   TCatJESDown         = 0;
-  Tcuts.clear();
+  
+  for (UInt_t i = 0; i < 14; i++) Tcuts[i] = 0;
   Tdummy              = 0;
 }
 

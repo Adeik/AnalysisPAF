@@ -126,6 +126,7 @@ class ttHAnalysis : public PAFChainItemSelector {
     std::vector<Float_t>  TPtVector;
     std::vector<UInt_t>    Tcuts;
     UInt_t    Tdummy;
+    Float_t   Tcuts[14];
     
     Float_t   THTJESUp;
     Float_t   THTJESDown;

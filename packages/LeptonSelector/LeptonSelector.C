@@ -453,6 +453,8 @@ Bool_t LeptonSelector::isGoodLepton(Lepton lep){
   	  passCSV			       = (jetBTagCSV < 0.8484);
   	  passId			       = mediumMuonId;
   	  passLepMVA		     = (MVATTH > 0.90);
+  	  //passLepMVA		     = (MVATTH > 0.95);
+  	  //passLepMVA		     = (MVATTH > 0.97);
 
   	  passptRatio		     = 1;
   	  passElecCutBasedId = 1;
@@ -467,6 +469,8 @@ Bool_t LeptonSelector::isGoodLepton(Lepton lep){
   	  passptRatio		     = 1;
   	  passCSV			       = (jetBTagCSV < 0.8484);
   	  passLepMVA		     = (MVATTH > 0.90);
+  	  //passLepMVA		     = (MVATTH > 0.95);
+  	  //passLepMVA		     = (MVATTH > 0.97);
 
   	  passId			       = 1;
   	}

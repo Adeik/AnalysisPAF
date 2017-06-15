@@ -309,12 +309,23 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "pdfDown", "AllInstances");
     */
   }
+  
   // Histogram settings ========================================================
   p->SetScaleMax(1.7);
   p->SetRatioMin(0);
   p->SetRatioMax(2);
   p->doSetLogy = false;
   
+  // Cosinas pa' lo de la gráfica comparativa.
+  if (var == "Tcuts") {
+    THStack *hs;
+    hs = (p->GetStack());
+    
+    
+    
+    
+  }
+    
   // Errors ====================================================================
   p->AddSystematic("stat,Trig,PU,MuonEff,ElecEff,JES");
   

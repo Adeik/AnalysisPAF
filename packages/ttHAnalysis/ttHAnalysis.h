@@ -124,7 +124,8 @@ class ttHAnalysis : public PAFChainItemSelector {
     ULong64_t Tevt;
     UInt_t    Trun;
     UInt_t    Tdummy;
-    Float_t   Tcuts[14];
+    UInt_t    Tcuts[14];
+    UInt_t    Tcutslimit;
     Float_t   TPtVector[20];
     
     Float_t   THTJESUp;

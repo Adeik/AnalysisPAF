@@ -41,7 +41,7 @@ void DrawPlots(TString chan = "ElMu", TString tag = "0"){
   else if (chan == "3l")  cut = "(TCat == 3)";
   else if (chan == "4l")  cut = "(TCat == 4)";
   
-  DrawPlot("TCat",                cut, chan, 3, 2, 5,       "Category",         "Categories", tag); // This one is only for getting yields and for the Datacard.
+  /*DrawPlot("TCat",                cut, chan, 3, 2, 5,       "Category",         "Categories", tag); // This one is only for getting yields and for the Datacard.
   DrawPlot("TnTightLepton",       cut, chan, 6, -0.5, 5.5,  "nTightLep (#)",    "nTightLepton", tag);
   DrawPlot("TnFakeableLepton",    cut, chan, 6, -0.5, 5.5,  "nFakeLep (#)",     "nFakeLepton", tag);
   DrawPlot("TnLooseLepton",       cut, chan, 6, -0.5, 5.5,  "nLooseLep (#)",    "nLooseLepton", tag);
@@ -59,7 +59,7 @@ void DrawPlots(TString chan = "ElMu", TString tag = "0"){
   DrawPlot("THT",                 cut, chan, 10, 0, 1000,   "HT (GeV)",         "HT", tag);
   DrawPlot("TMETLD",              cut, chan, 10, 0, 2,      "METLD (GeV)",      "METLD", tag);
   DrawPlot("TCS",                 cut, chan, 7, -3.5, 3.5,  "Sum of charges",   "CS", tag);
-  DrawPlot("TMass",               cut, chan, 10, 0, 400,    "M_ll (GeV)",       "Mass", tag);
+  DrawPlot("TMass",               cut, chan, 10, 0, 400,    "M_ll (GeV)",       "Mass", tag);*/
   DrawPlot("Tcuts",               cut, chan, 14, -0.5, 13.5,"Cortes",           "Tcuts", tag);
 }
 
@@ -169,7 +169,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   p->SetPath(path);
   p->SetPathSignal(path);
   
-  
+  counter = 1;
   // Minitree settings =========================================================
   p->SetTreeName("MiniTree");
   if (chan == "Elec" || chan == "Muon" || chan == "ElMu") name = name+"_2lSS";
@@ -315,19 +315,68 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   p->SetRatioMin(0);
   p->SetRatioMax(2);
   p->doSetLogy = false;
+  p->AddSystematic("stat");
   
   // Cosinas pa' lo de la gráfica comparativa.
-  if (var == "Tcuts") {
-    THStack *hs;
-    hs = (p->GetStack());
+  if (var == "Tcuts" && chan == "3l") {
+    THStack *hs = NULL;
+    Histo *his  = NULL;
     
+    cout<<"juju"<<endl;
     
+    p->GetStack();
     
+    cout<<"jojo"<<endl;
     
+    hs = p->hStack;
+    his = p->GetHisto("Data");
+    
+    Float_t eficmc[14]    = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    Float_t eficdata[14]  = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+    Float_t x[14]         = {0,1,2,3,4,5,6,7,8,9,10,11,12,13};
+    
+    Float_t ef0 = 0;
+    Float_t ef1 = 0;
+    
+    for (UInt_t i = 1; i < 14; i++) {
+      ef0 = ((TH1*)(hs->GetStack()->Last()))->GetBinContent(i-1);
+      ef1 = ((TH1*)(hs->GetStack()->Last()))->GetBinContent(i);
+      
+      if (ef0 == 0) {
+        eficmc[i] = 0;
+      }
+      else {
+        eficmc[i] = ef1/ef0;
+      }
+      
+      ef0 = his->GetBinContent(i-1);
+      ef1 = his->GetBinContent(i);
+      
+       if (ef0 == 0) {
+        eficdata[i] = 0;
+      }
+      else {
+        eficdata[i] = ef1/ef0;
+      }     
+    }
+    TCanvas *c1 = new TCanvas("c1","Efficiency");
+    TMultiGraph *mg = new TMultiGraph();
+    mg->SetTitle("Efficiency");
+    
+    TGraph* grmc    = new TGraph(14,x,eficmc);
+    grmc->SetLineColor(kRed);
+    TGraph* grdata  = new TGraph(14,x,eficdata);
+    grdata->SetLineColor(kBlue);
+    mg->Draw("AL");
+    
+    c1->Print("canvas.png");
+    //TImage *img = TImage::Create();
+    //img->FromPad(c1);
+    //img->WriteImage("canvas.png");
   }
     
   // Errors ====================================================================
-  p->AddSystematic("stat,Trig,PU,MuonEff,ElecEff,JES");
+  /*p->AddSystematic("stat,Trig,PU,MuonEff,ElecEff,JES");
   
   // Yields table and cross section settings, histograms plotting ==============
   if (counter == 0) {
@@ -373,9 +422,9 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     d->GetParamsFormFile();
     d->PrintDatacard(outputpath+"Datacard_"+name+"_"+chan+"_"+tag+".txt");
   }
-  else {
+  else {*/
     p->DrawStack(tag, 1);
-  }
+  //}
   
   if (counter == 0) counter = 1;
   delete p;

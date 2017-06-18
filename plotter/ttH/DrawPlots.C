@@ -360,14 +360,16 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
       }     
     }
     TCanvas *c1 = new TCanvas("c1","Efficiency");
-    TMultiGraph *mg = new TMultiGraph();
-    mg->SetTitle("Efficiency");
+    //TMultiGraph *mg = new TMultiGraph();
+    //mg->SetTitle("Efficiency");
     
     TGraph* grmc    = new TGraph(14,x,eficmc);
     grmc->SetLineColor(kRed);
     TGraph* grdata  = new TGraph(14,x,eficdata);
     grdata->SetLineColor(kBlue);
-    mg->Draw("AL");
+    //mg->Draw("AL");
+    grmc->Draw("AL");
+    grmc->Draw("L");
     
     c1->Print("canvas.png");
     //TImage *img = TImage::Create();

@@ -189,7 +189,7 @@ Bool_t EventBuilder::PassesThreelFourlTrigger() {
 
   if (gSelection == ittHSelec) {
     pass =  (Get<Int_t>("HLT_BIT_HLT_DiMu9_Ele9_CaloIdL_TrackIdL_v") ||
-    		    Get<Int_t>("HLT_BIT_HLT_Mu8_DiEle12_CaloIdL_TrackIdL_v") ||
+            Get<Int_t>("HLT_BIT_HLT_Mu8_DiEle12_CaloIdL_TrackIdL_v") ||
             Get<Int_t>("HLT_BIT_HLT_TripleMu_12_10_5_v") ||
             Get<Int_t>("HLT_BIT_HLT_Ele16_Ele12_Ele8_CaloIdL_TrackIdL_v") ||
             Get<Int_t>("HLT_BIT_HLT_Mu23_TrkIsoVVL_Ele8_CaloIdL_TrackIdL_IsoVL_v") ||
@@ -392,12 +392,12 @@ Bool_t EventBuilder::Trig3l4l() {
   
   pass = PassesThreelFourlTrigger();
   
-  if(gIsData) {
+  /*if(gIsData) {
     if      (gIsSingleMuon && ((nm+ne != nm) || (nm + ne != ne))) pass = false;
     else if (gIsSingleElec && ((nm+ne != nm) || (nm + ne != ne))) pass = false;
     else if (gIsDoubleMuon) pass = false;
     else if (gIsDoubleElec) pass = false;
-  }
+  }*/
   return pass;
 }
 

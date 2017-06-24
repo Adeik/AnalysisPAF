@@ -20,11 +20,11 @@ const TString Convsmc[]   = {"WGToLNuG", "ZGTo2LG", "TGJets", "TTGJets"}; // Con
 const TString Fakesmc[]   = {"TTbar_Powheg", "WJetsToLNu_MLM", "TW", 
                              "TbarW", "T_tch", "Tbar_tch", 
                              "TToLeptons_sch_amcatnlo", "DYJetsToLL_M50_MLM", 
-                             "DYJetsToLL_M5to50_MLM", "WW", "WWTo2L2Nu"}; // Fakes (ttbar with Powheg)
+                             "DYJetsToLL_M5to50_MLM", "WW", "WWTo2L2Nu","WpWpJJ"}; // Fakes (ttbar with Powheg)
 /*const TString Fakesmc[]   = {"TTbar_aMCatNLO", "WJetsToLNu_MLM", "TW", 
                              "TbarW", "T_tch", "Tbar_tch", 
                              "TToLeptons_sch_amcatnlo", "DYJetsToLL_M50_MLM", 
-                             "DYJetsToLL_M5to50_MLM", "WW", "WWTo2L2Nu"}; // Fakes (ttbar with aMC@NLO)*/
+                             "DYJetsToLL_M5to50_MLM", "WW", "WWTo2L2Nu", "WpWpJJ"}; // Fakes (ttbar with aMC@NLO)*/
 const TString Raresmc[]   = {"WWW", "WWZ", "WZZ", "ZZZ", "ZZ", "tZq_ll", 
                              "TTTT"};                                     // Rares
 const TString Data[]      = {"MuonEG", "SingleMuon", "SingleElec", "DoubleEG", "DoubleMuon"};        // Data samples
@@ -322,11 +322,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     THStack *hs = NULL;
     Histo *his  = NULL;
     
-    cout<<"juju"<<endl;
-    
     p->GetStack();
-    
-    cout<<"jojo"<<endl;
     
     hs = p->hStack;
     his = p->GetHisto("Data");

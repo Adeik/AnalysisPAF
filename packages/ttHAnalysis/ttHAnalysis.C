@@ -468,6 +468,7 @@ void ttHAnalysis::ResetVariables() {
   TCatJESDown         = 0;
   
   for (UInt_t i = 0; i < 14; i++) Tcuts[i] = 0;
+  
   Tcutslimit          = 0;
   Tdummy              = 0;
 }

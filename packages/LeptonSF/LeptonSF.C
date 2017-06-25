@@ -18,6 +18,9 @@ LeptonSF::LeptonSF(TString path):
   fMuonIdFastSim(0),
   fMuonlepMVA2lSSttH(0),    // Muon ttH LepMVA 2lSS
   fMuonlepMVA3l4lttH(0),    // Muon ttH LepMVA 3l, 4l
+  fMuonLooseTracksttH(0),
+  fMuonLooseMiniIsottH(0),
+  fMuonTightIP2DttH(0),
 
   fElecTrackerSF(0),  // Electron Reco
   fElecIdSF(0),       // Electron Id (+Iso)
@@ -27,6 +30,9 @@ LeptonSF::LeptonSF(TString path):
   fElecFastSim(0),
   fEleclepMVA2lSSttH(0),    // Elec ttH LepMVA 2lSS
   fEleclepMVA3l4lttH(0),    // Elec ttH LepMVA 3l, 4l
+  fElecTightIP2DM17ttH(0),
+  fElecMini4M17ttH(0),
+  fElecConvVetoM17ttH(0),
 
   fDoubleMuSF(0),     // Trigger Double Muon
   fDoubleElSF(0),     // Trigger Double Elec

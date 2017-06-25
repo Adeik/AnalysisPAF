@@ -69,7 +69,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     p     = new Plot(var, cut, "All", nbins, bin0, binN, "Title", Xtitle);
   }
   else {
-    p     = new Plot(var, cut, chan, nbins, bin0, binN, "Title", Xtitle);
+    p     = new Plot(var, "1", "All", nbins, bin0, binN, "Title", Xtitle);
   }
   
   p->verbose  = true;
@@ -177,14 +177,14 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   
     
   // Samples import ============================================================
-  if (var != "TPtVector") {
+  /*if (var != "TPtVector" || var != "Tcuts") {
     for (UInt_t isample = 0; isample < sizeof(TTWmc)/sizeof(*TTWmc); isample++) {
       p->AddSample(TTWmc[isample], "TTW", itBkg, kGreen-5);
     }
     for (UInt_t isample = 0; isample < sizeof(TTZmc)/sizeof(*TTZmc); isample++) {
   	  p->AddSample(TTZmc[isample], "TTZ", itBkg, kSpring+2);
     }
-    /*
+    
     for (UInt_t isample = 0; isample < sizeof(TTWmc)/sizeof(*TTWmc); isample++) {
       p->AddSample(TTWmc[isample], "TTW", itSys, 1, "ScaleUp");
     }
@@ -208,7 +208,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     }
     for (UInt_t isample = 0; isample < sizeof(TTZmc)/sizeof(*TTZmc); isample++) {
   	  p->AddSample(TTZmc[isample], "TTZ", itSys, 1, "pdfDown");
-    }*/
+    }
     
     for (UInt_t isample = 0; isample < sizeof(WZmc)/sizeof(*WZmc); isample++) {
   	  p->AddSample(WZmc[isample], "WZ", itBkg, kViolet+10);
@@ -235,7 +235,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
         p->AddSample(Signalmc[isample], "ttH", itBkg, kRed);
       }
     }
-    /*
+    
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "NormttHUp");
     p->ScaleSys("ttH_NormttHUp", 1.058);
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "NormttHDown");
@@ -244,9 +244,9 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "ScaleDown");
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "pdfUp");
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "pdfDown");
-  */
+  
   }
-  else {
+  else {*/
     for (UInt_t isample = 0; isample < sizeof(TTWmc)/sizeof(*TTWmc); isample++) {
       p->AddSample(TTWmc[isample], "TTW", itBkg, kGreen-5, "0", "AllInstances");
     }
@@ -293,17 +293,23 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     }
     for (UInt_t isample = 0; isample < sizeof(Data)/sizeof(*Data); isample++) {
   	  p->AddSample(Data[isample], "Data", itData,kBlack, "0", "AllInstances");
-    }
+    }/*
     if (counter == 0) {
       for (UInt_t isample = 0; isample < sizeof(Signalmc)/sizeof(*Signalmc); isample++) {
   	    p->AddSample(Signalmc[isample], "ttH", itSignal, kRed, "0", "AllInstances");
       }
-    }
-    else {
-      for (UInt_t isample = 0; isample < sizeof(Signalmc)/sizeof(*Signalmc); isample++) {
-        p->AddSample(Signalmc[isample], "ttH", itBkg, kRed, "0", "AllInstances");
-      }
-    }
+
+    } else {*/
+      p->AddSample(Signalmc[0], "ttH", itBkg, kRed, "0", "AllInstances");
+    //}
+
+
+
+
+
+
+
+
     /*
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "NormttHUp", "AllInstances");
     p->ScaleSys("ttH_NormttHUp", 1.058);
@@ -314,7 +320,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "pdfUp", "AllInstances");
     p->AddSample(Signalmc[0], "ttH", itSys, 1, "pdfDown", "AllInstances");
     */
-  }
+  //}
   
   // Histogram settings ========================================================
   p->SetScaleMax(1.7);
@@ -331,6 +337,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     p->GetStack();
     
     hs = p->hStack;
+    p->SetData();
     his = p->GetHisto("Data");
     
     Float_t eficmc[14]    = {0,0,0,0,0,0,0,0,0,0,0,0,0,0};
@@ -340,43 +347,43 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     Float_t ef0 = 0;
     Float_t ef1 = 0;
     
-    for (UInt_t i = 1; i < 14; i++) {
+    for (UInt_t i = 1; i < 15; i++) {
       ef0 = ((TH1*)(hs->GetStack()->Last()))->GetBinContent(i-1);
       ef1 = ((TH1*)(hs->GetStack()->Last()))->GetBinContent(i);
       
       if (ef0 == 0) {
-        eficmc[i] = 0;
+        eficmc[i-1] = 0;
       }
       else {
-        eficmc[i] = ef1/ef0;
+        eficmc[i-1] = ef1/ef0;
       }
       
       ef0 = his->GetBinContent(i-1);
       ef1 = his->GetBinContent(i);
       
        if (ef0 == 0) {
-        eficdata[i] = 0;
+        eficdata[i-1] = 0;
       }
       else {
-        eficdata[i] = ef1/ef0;
+        eficdata[i-1] = ef1/ef0;
       }     
     }
     TCanvas *c1 = new TCanvas("c1","Efficiency");
-    //TMultiGraph *mg = new TMultiGraph();
-    //mg->SetTitle("Efficiency");
     
     TGraph* grmc    = new TGraph(14,x,eficmc);
     grmc->SetLineColor(kRed);
     TGraph* grdata  = new TGraph(14,x,eficdata);
     grdata->SetLineColor(kBlue);
-    //mg->Draw("AL");
+    
     grmc->Draw("AL");
-    grmc->Draw("L");
+    grdata->Draw("L");
     
     c1->Print("canvas.png");
-    //TImage *img = TImage::Create();
-    //img->FromPad(c1);
-    //img->WriteImage("canvas.png");
+    for (UInt_t i = 0; i<14;i++) {
+      cout<<"Corte nº "<< i <<endl;
+      cout<<"MC: "<<eficmc[i]<<endl;
+      cout<<"Data: "<<eficdata[i]<<endl;
+    }
   }
     
   // Errors ====================================================================

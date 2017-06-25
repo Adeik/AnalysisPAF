@@ -14,3 +14,7 @@ Datasets/
 .DS_Store
 *_temp/
 inputdata.root
+
+
+
+plotter/canvas.png

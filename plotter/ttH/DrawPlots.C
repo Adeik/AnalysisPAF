@@ -41,7 +41,7 @@ void DrawPlots(TString chan = "ElMu", TString tag = "0"){
   else if (chan == "3l")  cut = "(TCat == 3)";
   else if (chan == "4l")  cut = "(TCat == 4)";
   
-  /*DrawPlot("TCat",                cut, chan, 3, 2, 5,       "Category",         "Categories", tag); // This one is only for getting yields and for the Datacard.
+  /*DrawPlot("TCat",                cut, chan, 3, 2, 5,       "Category",         "Categories", tag); // This one is only for getting yields and for the Datacard.*/
   DrawPlot("TnTightLepton",       cut, chan, 6, -0.5, 5.5,  "nTightLep (#)",    "nTightLepton", tag);
   DrawPlot("TnFakeableLepton",    cut, chan, 6, -0.5, 5.5,  "nFakeLep (#)",     "nFakeLepton", tag);
   DrawPlot("TnLooseLepton",       cut, chan, 6, -0.5, 5.5,  "nLooseLep (#)",    "nLooseLepton", tag);
@@ -59,7 +59,7 @@ void DrawPlots(TString chan = "ElMu", TString tag = "0"){
   DrawPlot("THT",                 cut, chan, 10, 0, 1000,   "HT (GeV)",         "HT", tag);
   DrawPlot("TMETLD",              cut, chan, 10, 0, 2,      "METLD (GeV)",      "METLD", tag);
   DrawPlot("TCS",                 cut, chan, 7, -3.5, 3.5,  "Sum of charges",   "CS", tag);
-  DrawPlot("TMass",               cut, chan, 10, 0, 400,    "M_ll (GeV)",       "Mass", tag);*/
+  DrawPlot("TMass",               cut, chan, 10, 0, 400,    "M_ll (GeV)",       "Mass", tag);
   DrawPlot("Tcuts",               cut, chan, 14, -0.5, 13.5,"Cortes",           "Tcuts", tag);
 }
 
@@ -69,7 +69,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     p     = new Plot(var, cut, "All", nbins, bin0, binN, "Title", Xtitle);
   }
   else {
-    p     = new Plot(var, "1", "All", nbins, bin0, binN, "Title", Xtitle);
+    p     = new Plot(var, "TCat == 3", "3l", nbins, bin0, binN, "Title", Xtitle);
   }
   
   p->verbose  = true;

@@ -392,12 +392,12 @@ Bool_t EventBuilder::Trig3l4l() {
   
   pass = PassesThreelFourlTrigger();
   
-  /*if(gIsData) {
-   if (gIsSingleMuon      && (PassesElMuTrigger() || PassesDoubleMuonTrigger() || PassesDoubleElecTrigger())) pass = false;
-   else if (gIsSingleElec && (PassesElMuTrigger() || PassesDoubleMuonTrigger() || PassesDoubleElecTrigger())) pass = false;
-   else if (gIsDoubleMuon && PassesElMuTrigger()) pass = false;
-   else if (gIsDoubleElec && PassesElMuTrigger()) pass = false;
- }*/
+  if(gIsData) {
+    if      (gIsDoubleMuon && (PassesElMuTrigger() || PassesDoubleMuonTrigger() || PassesDoubleElecTrigger() || PassesThreelFourlTrigger())) pass = false;
+    else if (gIsDoubleElec && (PassesElMuTrigger() || PassesDoubleMuonTrigger() || PassesDoubleElecTrigger() || PassesThreelFourlTrigger())) pass = false;
+    else if (gIsSingleMuon && PassesElMuTrigger()) pass = false;
+    else if (gIsSingleElec && PassesElMuTrigger()) pass = false;
+ }
 
  // if(gIsData) {
  //   if      (gIsSingleMuon && ((nm+ne != nm) || (nm + ne != ne))) pass = false;
@@ -406,12 +406,13 @@ Bool_t EventBuilder::Trig3l4l() {
  //   else if (gIsDoubleElec) pass = false;
  // }
 
-  if(gIsData) {
-    if      (gIsSingleMuon && (ne != 0 && nm != 0)) pass = false;
-    else if (gIsSingleElec && (ne != 0 && nm != 0)) pass = false;
-    else if (gIsDoubleMuon) pass = false;
-    else if (gIsDoubleElec) pass = false;
-  }
+  // if(gIsData) {
+  //   if      (gIsSingleMuon && (ne != 0 && nm != 0)) pass = false;
+  //   else if (gIsSingleElec && (ne != 0 && nm != 0)) pass = false;
+  //   else if (gIsDoubleMuon) pass = false;
+  //   else if (gIsDoubleElec) pass = false;
+  // }
+  
   return pass;
 }
 

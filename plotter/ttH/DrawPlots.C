@@ -43,8 +43,7 @@ void DrawPlots(TString chan = "ElMu", TString tag = "0"){
   else if (chan == "3l")  cut = "(TCat == 3)";
   else if (chan == "4l")  cut = "(TCat == 4)";
   
-<<<<<<< HEAD
-  DrawPlot("TCat",                cut, chan, 3, 2, 5,     "Category",         "Categories", tag); // This one is only for getting yields and for the Datacard.
+  DrawPlot("TCat",                cut, chan, 3, 2, 5,       "Category",         "Categories", tag); // This one is only for getting yields and for the Datacard.
   DrawPlot("TnTightLepton",       cut, chan, 6, -0.5, 5.5,"nTightLep (#)",    "nTightLepton", tag);
   DrawPlot("TnFakeableLepton",    cut, chan, 6, -0.5, 5.5,"nFakeLep (#)",     "nFakeLepton", tag);
   DrawPlot("TnLooseLepton",       cut, chan, 6, -0.5, 5.5,"nLooseLep (#)",    "nLooseLepton", tag);
@@ -63,27 +62,6 @@ void DrawPlots(TString chan = "ElMu", TString tag = "0"){
   DrawPlot("TMETLD",              cut, chan, 5, 0, 2,     "METLD (GeV)",      "METLD", tag);
   DrawPlot("TCS",                 cut, chan, 7, -3.5, 3.5,"Sum of charges",   "CS", tag);
   DrawPlot("TMass",               cut, chan, 5, 0, 400,   "M_ll (GeV)",       "Mass", tag);
-=======
-  DrawPlot("TCat",                cut, chan, 3, 2, 5,       "Category",         "Categories", tag); // This one is only for getting yields and for the Datacard.
-  DrawPlot("TnTightLepton",       cut, chan, 6, -0.5, 5.5,  "nTightLep (#)",    "nTightLepton", tag);
-  DrawPlot("TnFakeableLepton",    cut, chan, 6, -0.5, 5.5,  "nFakeLep (#)",     "nFakeLepton", tag);
-  DrawPlot("TnLooseLepton",       cut, chan, 6, -0.5, 5.5,  "nLooseLep (#)",    "nLooseLepton", tag);
-  DrawPlot("TnTaus",              cut, chan, 3, -0.5, 2.5,  "nTaus (#)",        "nTaus", tag);
-  DrawPlot("TnJets",              cut, chan, 10, -0.5, 9.5, "nJets (#)",        "nJets", tag);
-  DrawPlot("TnMediumBTags",       cut, chan, 6, -0.5, 5.5,  "nMediumBTags (#)", "nMediumBTags", tag);
-  DrawPlot("TnLooseBTags",        cut, chan, 6, -0.5, 5.5,  "nLooseBTags (#)",  "nLooseBTags", tag);
-  DrawPlot("TPtLeading",          cut, chan, 10, 0, 200,    "p_{T} (GeV)",      "PtLeading", tag);
-  DrawPlot("TPtSubLeading",       cut, chan, 10, 0, 200,    "p_{T} (GeV)",      "PtSubLeading", tag);
-  DrawPlot("TPtSubSubLeading",    cut, chan, 10, 0, 200,    "p_{T} (GeV)",      "PtSubSubLeading", tag);
-  DrawPlot("TPtSubSubSubLeading", cut, chan, 10, 0, 200,    "p_{T} (GeV)",      "PtSubSubSubLeading", tag);
-  DrawPlot("TPtVector",           cut, chan, 10, 0, 200,    "p_{T} (GeV)",      "PtVector", tag);
-  DrawPlot("TMET",                cut, chan, 10, 0, 400,    "#slash{E}_{T} (GeV)","MET", tag);
-  DrawPlot("TMHT",                cut, chan, 10, 0, 400,    "#slash{H}_{T} (GeV)","MHT", tag);
-  DrawPlot("THT",                 cut, chan, 10, 0, 1000,   "H_{T} (GeV)",      "HT", tag);
-  DrawPlot("TMETLD",              cut, chan, 10, 0, 2,      "#slash{E}_{T}LD (GeV)","METLD", tag);
-  DrawPlot("TCS",                 cut, chan, 7, -3.5, 3.5,  "Sum of charges",   "CS", tag);
-  DrawPlot("TMass",               cut, chan, 10, 0, 400,    "M_{ll} (GeV)",     "Mass", tag);
->>>>>>> ff286dbdc021f6ee6c6646f5d32814109b7dde95
 }
 
 void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0, Float_t binN, TString Xtitle, TString name, TString tag = "0") {
@@ -203,72 +181,43 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
   // Samples import ============================================================
   if (counter != 0) {
     if (var != "TPtVector") {
-      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSignal, kViolet-8);
-      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSignal, kSpring+10);
+      p->AddSample(TTbarmc[1], "aMC@NLO", itSignal, kViolet-8);
+      p->AddSample(TTbarmc[0], "Powheg", itSignal, kSpring+10);
     }
     else {
-      p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itSignal, kViolet-8, "0", "AllInstances");
-      p->AddSample(TTbarmc[0], "TTbar_Powheg", itSignal, kSpring+10, "0", "AllInstances");
+      p->AddSample(TTbarmc[1], "aMC@NLO", itSignal, kViolet-8, "0", "AllInstances");
+      p->AddSample(TTbarmc[0], "Powheg", itSignal, kSpring+10, "0", "AllInstances");
     }
   }
   else {
-    p->AddSample(TTbarmc[1], "TTbar_aMCatNLO", itBkg, kViolet-8);
-    p->AddSample(TTbarmc[0], "TTbar_Powheg", itBkg, kSpring+10);
+    p->AddSample(TTbarmc[1], "aMC@NLO", itBkg, kViolet-8);
+    p->AddSample(TTbarmc[1], "aMC@NLO", itSys, 1, "NormaMC@NLOUp");
+    p->AddSample(TTbarmc[1], "aMC@NLO", itSys, 1, "NormaMC@NLODown");
+    p->ScaleSys("aMC@NLO_NormaMC@NLOUp",    1.30);
+    p->ScaleSys("aMC@NLO_NormaMC@NLODown",  0.70);
+    
+    p->AddSample(TTbarmc[0], "Powheg", itBkg, kSpring+10);
+    p->AddSample(TTbarmc[0], "Powheg", itSys, 1, "NormPowhegUp");
+    p->AddSample(TTbarmc[0], "Powheg", itSys, 1, "NormPowhegDown");
+    p->ScaleSys("Powheg_NormPowhegUp",    1.30);
+    p->ScaleSys("Powheg_NormPowhegDown",  0.70);
   }
-  
+
   // Histogram settings ========================================================
   p->SetScaleMax(1.7);
   p->SetRatioMin(0);
   p->SetRatioMax(2);
   p->doSetLogy = false;
-  p->SetCMSlabel("CMS Non-official");
   
   // Errors ====================================================================
-  p->AddSystematic("stat,Trig,PU,MuonEff,ElecEff,JES");
+  p->AddSystematic("stat, Trig, PU, MuonEff, ElecEff, JES");
   
   // Yields table and cross section settings, histograms plotting ==============
-  if (counter == 0) {
+  if (counter == 0) { // YIELDS & DATACARDS 
     // Yields
     p->SetTableFormats("%1.4f");
     p->SetYieldsTableName("Yields_"+chan+"_"+tag);
     p->PrintYields("","","","txt");
-    
-    /*
-    p->SetLimitFolder(outputpath);
-    p->SetOutputName("Histos_"+chan+"_"+tag);
-    p->SaveHistograms();
-    
-    // Cross section
-    p->SetSignalStyle("xsec");
-    CrossSection *x = new CrossSection(p, "ttH");
-    x->SetTheoXsec(0.2150955);
-    x->SetChannelTag("chan");
-    
-    x->SetEfficiencySyst("Trig, PU, MuonEff, ElecEff, JES");
-    x->SetAcceptanceSyst("stat, Scale, pdf");
-    //x->SetAcceptanceSyst("stat");
-    
-    x->SetOutputFolder(outputpath);
-    x->SetXsecTableName("Xsec_"+chan+"_"+tag);
-    x->SetTableName("Xsec_unc_"+chan+"_"+tag);
-    
-    x->PrintSystematicTable("txt");
-    x->PrintCrossSection("txt");
-    
-    // Datacard
-    const TString Bkgs      = " ttW,  ttZ,    WZ,   Convs,  Fakes,  Rares";
-    //const TString BkgsNorm  = "1.12, 1.10,   1.3,     1.3,    1.3,    1.3";
-    const TString BkgsNorm  = "1.12,  1.10,   1.3,  1.3,    1.3,    1.3,   1.098";
-    const TString Sys       = "Trig, PU, MuonEff, ElecEff, JES, Scale, pdf";
-    //const TString Sys       = "Trig, PU, MuonEff, ElecEff, JES";
-    Datacard *d = new Datacard("ttH",Bkgs,Sys,chan);
-    
-    d->SetPathToFile(outputpath);
-    d->SetLumiUnc(1+2.6/100);
-    d->SetNormUnc(BkgsNorm);
-    d->SetRootFileName("Histos_"+chan+"_"+tag);
-    d->GetParamsFormFile();
-    d->PrintDatacard(outputpath+"Datacard_"+name+"_"+chan+"_"+tag+".txt");*/
   }
   else {
     //p->DrawStack(tag, 1);
@@ -276,6 +225,6 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     p->DrawComp(tag, 1);
   }
   
-  if (counter == 0) counter = 1;
+  counter++;
   delete p;
 }

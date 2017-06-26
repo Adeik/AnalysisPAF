@@ -481,13 +481,14 @@ void Plot::DrawComp(TString tag, bool sav, bool doNorm, TString lineStyle){
       else
         cout << "ERROR: only one sample is selected. How can I compare it with another one?" << endl;
      
-      TText *t = new TText(.7,.7,Form("%s: %f", theComp.Data(), pvalue));
+      /*TText *t = new TText(.7,.7,Form("%s: %f", theComp.Data(), pvalue));
       t->SetTextAlign(22);
       t->SetTextColor(kRed+2);
       t->SetTextFont(43);
       t->SetTextSize(40);
       t->SetTextAngle(45);
-      t->Draw("same");
+      t->Draw("same");*/
+      cout << "p-valor del gráfico " << varname + "_" + tag << "= " << pvalue << endl;
     }
   
   pratio->cd();

@@ -223,6 +223,7 @@ void DrawPlot(TString var, TString cut, TString chan, Int_t nbins, Float_t bin0,
     //p->DrawStack(tag, 1);
     p->SetGoF("chi2");
     p->DrawComp(tag, 1);
+
   }
   
   counter++;
